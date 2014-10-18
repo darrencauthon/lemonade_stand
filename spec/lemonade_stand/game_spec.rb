@@ -27,6 +27,10 @@ describe LemonadeStand::Game do
           end
         end
 
+        it "should set the day to 1" do
+          game.day.must_equal 1
+        end
+
       end
 
     end
