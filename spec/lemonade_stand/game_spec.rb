@@ -2,7 +2,7 @@ require_relative '../spec_helper'
 
 describe LemonadeStand::Game do
 
-  describe "starting a game" do
+  describe "creating a game" do
 
     [
       [4],
