@@ -7,7 +7,7 @@ module LemonadeStand
     end
 
     def players
-      (1..@number_of_players).map { Object.new }
+      (0...@number_of_players).map { |i| LemonadeStand::Player.new i }
     end
 
   end
