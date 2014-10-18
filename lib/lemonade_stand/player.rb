@@ -1,13 +1,11 @@
 module LemonadeStand
 
   class Player
+    attr_accessor :index
 
-    attr_reader :index
-
-    def initialize index
-      @index = index
+    def assets
+      200
     end
-
   end
 
 end

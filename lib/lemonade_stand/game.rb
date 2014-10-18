@@ -11,7 +11,11 @@ module LemonadeStand
     end
 
     def players
-      (0...@number_of_players).map { |i| LemonadeStand::Player.new i }
+      (0...@number_of_players).map do |i|
+        p = LemonadeStand::Player.new
+        p.index = i
+        p
+      end
     end
 
   end
