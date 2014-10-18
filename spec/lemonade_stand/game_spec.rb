@@ -14,6 +14,7 @@ describe LemonadeStand::Game do
         let(:game) { LemonadeStand::Game.new example.player_count }
 
         describe "players" do
+
           it "should require the number of players" do
             game.players.count.must_equal example.player_count
           end
@@ -27,6 +28,13 @@ describe LemonadeStand::Game do
               player.index.must_equal index
             end
           end
+
+          it "should set the game on the player" do
+            game.players.each do |player|
+              player.game.must_be_same_as game
+            end
+          end
+
         end
 
         it "should set the day to 1" do

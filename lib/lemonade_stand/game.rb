@@ -14,6 +14,7 @@ module LemonadeStand
       (0...@number_of_players).map do |i|
         p = LemonadeStand::Player.new
         p.index = i
+        p.game = self
         p
       end
     end
