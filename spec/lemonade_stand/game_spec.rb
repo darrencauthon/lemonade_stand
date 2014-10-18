@@ -23,6 +23,15 @@ describe LemonadeStand::Game do
             game.players.each { |p| p.is_a?(LemonadeStand::Player).must_equal true }
           end
 
+          it "should return the same player objects each time" do
+            results      = game.players
+            more_results = game.players
+            results.each_with_index do |player, index|
+              player.must_be_same_as more_results[index]
+            end
+          end
+
+
           it "should set the player index on each as an incrementing index" do
             game.players.each_with_index do |player, index|
               player.index.must_equal index
