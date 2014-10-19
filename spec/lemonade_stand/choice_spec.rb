@@ -66,7 +66,7 @@ describe LemonadeStand::Choice do
 
   end
 
-  describe "base sales" do
+  describe "max sales" do
     [
       [1,     0,   51.60],
       [1,     1,   71.90],
@@ -89,8 +89,8 @@ describe LemonadeStand::Choice do
           choice.signs           = example.signs
         end
 
-        it "should return sales of #{example.expected}" do
-          choice.sales.round(2).must_equal example.expected
+        it "should return max sales of #{example.expected}" do
+          choice.max_sales.round(2).must_equal example.expected
         end
 
       end
