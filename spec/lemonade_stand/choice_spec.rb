@@ -30,7 +30,7 @@ describe LemonadeStand::Choice do
           end
 
           it "should have a sales factor of #{example.expected}" do
-            choice.sales_factor.round(2).must_equal example.expected
+            choice.send(:sales_factor).round(2).must_equal example.expected
           end
         end
 
@@ -57,7 +57,7 @@ describe LemonadeStand::Choice do
         end
 
         it "should return factor of #{example.expected}" do
-          choice.signs_factor.round(2).must_equal example.expected
+          choice.send(:signs_factor).round(2).must_equal example.expected
         end
 
       end
@@ -90,7 +90,7 @@ describe LemonadeStand::Choice do
         end
 
         it "should return sales of #{example.expected}" do
-          choice.base_sales.round(2).must_equal example.expected
+          choice.sales.round(2).must_equal example.expected
         end
 
       end

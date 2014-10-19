@@ -7,6 +7,12 @@ module LemonadeStand
     attr_accessor :signs
     attr_accessor :price_per_glass
 
+    def sales
+      sales_factor + (sales_factor * signs_factor)
+    end
+
+    private
+
     def sales_factor
       result = if price_per_glass < 10
                  (HIGH_PRICE - price_per_glass) / HIGH_PRICE * 0.8 * DEMAND + DEMAND
@@ -18,10 +24,6 @@ module LemonadeStand
 
     def signs_factor
       1.0 - Math.exp((-1.0 * signs) * 0.5)
-    end
-
-    def base_sales
-      sales_factor + (sales_factor * signs_factor)
     end
 
   end
