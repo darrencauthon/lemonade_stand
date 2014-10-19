@@ -46,10 +46,6 @@ describe LemonadeStand::Game do
 
         end
 
-        it "should set the day to 1" do
-          game.day.must_equal 1
-        end
-
       end
 
     end
@@ -70,8 +66,6 @@ describe LemonadeStand::Game do
       let(:sales_results) { Object.new }
 
       before do
-        game.stubs(:day).returns 1
-
         days = Object.new
         days.stubs(:[]).with(0).returns day
 

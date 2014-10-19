@@ -6,10 +6,6 @@ module LemonadeStand
       @number_of_players = number_of_players
     end
 
-    def day
-      1
-    end
-
     def make_choice choice, player
       @result = LemonadeStand::Calculation.calculate_sales days[0], choice
     end
