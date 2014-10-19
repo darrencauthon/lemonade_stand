@@ -7,6 +7,11 @@ module LemonadeStand
     def assets
       200
     end
+
+    def choose choice
+      game.make_choice choice, self
+    end
+
   end
 
 end

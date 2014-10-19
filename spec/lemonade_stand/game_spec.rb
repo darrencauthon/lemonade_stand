@@ -56,4 +56,42 @@ describe LemonadeStand::Game do
 
   end
 
+  describe "making a choice" do
+
+    let(:game) { LemonadeStand::Game.new 1 }
+
+    let(:player)      { Struct.new(:index).new(1) }
+    let(:choice)      { Object.new }
+
+    describe "and the game is on day 1" do
+
+      let(:day) { Object.new }
+
+      let(:sales_results) { Object.new }
+
+      before do
+        game.stubs(:day).returns 1
+
+        days = Object.new
+        days.stubs(:[]).with(0).returns day
+
+        game.stubs(:days).returns days
+      end
+
+      it "should calculate the sales results" do
+        LemonadeStand::Calculation
+          .stubs(:calculate_sales)
+          .with(day, choice)
+          .returns sales_results
+
+        game.make_choice choice, player
+
+        game.sales_results_for(player, day).must_be_same_as sales_results
+      end
+
+    end
+
+
+  end
+
 end

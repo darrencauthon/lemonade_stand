@@ -8,4 +8,20 @@ describe LemonadeStand::Player do
     player.assets.must_equal 200
   end
 
+  describe "making a choice" do
+
+    let(:game)   { Object.new }
+    let(:choice) { Object.new }
+
+    before do
+      player.game = game
+    end
+
+    it "should pass the choice up to the game" do
+      game.expects(:make_choice).with choice, player
+      player.choose choice
+    end
+
+  end
+
 end
