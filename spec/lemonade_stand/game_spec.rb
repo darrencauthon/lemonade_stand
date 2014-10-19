@@ -83,18 +83,15 @@ describe LemonadeStand::Game do
 
             before do
 
-              LemonadeStand::Calculation
-                .stubs(:calculate_sales)
-                .returns Object.new
+              other_day.stubs(:sales_for).returns Object.new
+              day.stubs(:sales_for).returns Object.new
 
               # other moves have been made
               game.make_choice Object.new, { player: player,       day: other_day }
               game.make_choice Object.new, { player: other_player, day: day }
 
-              LemonadeStand::Calculation
-                .stubs(:calculate_sales)
-                .with(day, choice)
-                .returns sales_results
+              day.stubs(:sales_for).with(choice).returns sales_results
+
             end
 
             it "should calculate the sales results" do
