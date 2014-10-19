@@ -78,7 +78,19 @@ describe LemonadeStand::Game do
 
             let(:sales_results) { Object.new }
 
+            let(:other_day)    { game.days.select    { |d| d != day    } }
+            let(:other_player) { game.players.select { |p| p != player } }
+
             before do
+
+              LemonadeStand::Calculation
+                .stubs(:calculate_sales)
+                .returns Object.new
+
+              # other moves have been made
+              game.make_choice Object.new, { player: player,       day: other_day }
+              game.make_choice Object.new, { player: other_player, day: day }
+
               LemonadeStand::Calculation
                 .stubs(:calculate_sales)
                 .with(day, choice)
@@ -88,6 +100,14 @@ describe LemonadeStand::Game do
             it "should calculate the sales results" do
               game.make_choice choice, { player: player, day: day }
               game.sales_results_for(player, day).must_be_same_as sales_results
+            end
+
+            describe "sales results for" do
+              it "should not return the same results than the one we just checked" do
+                game.make_choice Object.new, { player: player, day: day }
+                game.sales_results_for(player, other_day).wont_be_same_as sales_results 
+                game.sales_results_for(other_player, day).wont_be_same_as sales_results
+              end
             end
 
           end

@@ -7,9 +7,10 @@ module LemonadeStand
     end
 
     def make_choice choice, options
-      player = options[:player]
-      day    = options[:day]
-      @result = LemonadeStand::Calculation.calculate_sales day, choice
+      player  = options[:player]
+      day     = options[:day]
+      results = LemonadeStand::Calculation.calculate_sales day, choice
+      store_sales_results_for results, player, day
     end
 
     def days
@@ -23,8 +24,16 @@ module LemonadeStand
       day
     end
 
+    def store_sales_results_for results, player, day
+      @sales_results ||= []
+      @sales_results << { player: player, day: day, results: results }
+    end
+
     def sales_results_for player, day
-      @result
+      @sales_results ||= []
+      @sales_results.select do |record|
+        return record[:results] if record[:player].object_id == player.object_id && record[:day].object_id == day.object_id
+      end
     end
 
     def players
