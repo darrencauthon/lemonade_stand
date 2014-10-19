@@ -21,4 +21,21 @@ describe LemonadeStand::Day do
 
   end
 
+  describe "the weather" do
+    
+    it "should pull the weather" do
+      weather = Object.new
+      LemonadeStand::Weather.stubs(:weather_for).with(day).returns weather
+      day.weather.must_be_same_as weather
+    end
+
+    it "should return the same projected weather report" do
+      weather = Object.new
+      LemonadeStand::Weather.expects(:weather_for).returns weather
+      day.weather
+      day.weather # this call will fail if called twice
+    end
+
+  end
+
 end
