@@ -1,11 +1,10 @@
 require_relative '../spec_helper'
 
-describe LemonadeStand::Calculation do
+describe LemonadeStand::Choice do
+
+  let(:choice) { LemonadeStand::Choice.new }
 
   describe "calculate sales" do
-
-    let(:day)    { Object.new }
-    let(:choice) { Object.new }
 
     describe "sales factor" do
 
@@ -26,11 +25,12 @@ describe LemonadeStand::Calculation do
 
         describe "price is #{example.price}" do
 
-          let(:choice) { Struct.new(:price_per_glass).new example.price }
+          before do
+            choice.price_per_glass = example.price
+          end
 
           it "should have a sales factor of #{example.expected}" do
-            result = LemonadeStand::Calculation.sales_factor choice
-            result.round(2).must_equal example.expected
+            choice.sales_factor.round(2).must_equal example.expected
           end
         end
 
@@ -52,11 +52,12 @@ describe LemonadeStand::Calculation do
 
       describe "purchased #{example.signs} signs" do
 
-        let(:choice) { Struct.new(:signs).new example.signs }
+        before do
+          choice.signs = example.signs
+        end
 
         it "should return factor of #{example.expected}" do
-          result = LemonadeStand::Calculation.signs_factor choice
-          result.round(2).must_equal example.expected
+          choice.signs_factor.round(2).must_equal example.expected
         end
 
       end
@@ -83,11 +84,13 @@ describe LemonadeStand::Calculation do
 
       describe "#{example.price_per_glass} glasses with #{example.signs} signs" do
 
-        let(:choice) { example }
+        before do
+          choice.price_per_glass = example.price_per_glass
+          choice.signs           = example.signs
+        end
 
         it "should return sales of #{example.expected}" do
-          result = LemonadeStand::Calculation.base_sales choice
-          result.round(2).must_equal example.expected
+          choice.base_sales.round(2).must_equal example.expected
         end
 
       end
