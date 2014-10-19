@@ -18,7 +18,9 @@ module LemonadeStand
 
     def start_a_new_day
       @days ||= []
-      @days << LemonadeStand::Day.new
+      day = LemonadeStand::Day.new
+      @days << day
+      day
     end
 
     def sales_results_for player, day

@@ -54,27 +54,46 @@ describe LemonadeStand::Game do
 
   describe "making a choice" do
 
-    let(:game) { LemonadeStand::Game.new 1 }
+    let(:game) { LemonadeStand::Game.new 2 }
 
-    let(:player)      { Struct.new(:index).new(1) }
     let(:choice)      { Object.new }
 
-    describe "multiple days" do
+    before do
+      game.start_a_new_day
+      game.start_a_new_day
+      game.start_a_new_day
+    end
 
-      let(:day) { Object.new }
+    describe "multiple days and players" do
 
-      let(:sales_results) { Object.new }
+      [0, 1, 2].each do |day_index|
 
-      before do
-        LemonadeStand::Calculation
-          .stubs(:calculate_sales)
-          .with(day, choice)
-          .returns sales_results
-      end
+        [0, 1].each do |player_index|
 
-      it "should calculate the sales results" do
-        game.make_choice choice, { player: player, day: day }
-        game.sales_results_for(player, day).must_be_same_as sales_results
+          describe "day #{day_index}" do
+
+            let(:day) { game.days[day_index] }
+
+            let(:player) { game.players[player_index] }
+
+            let(:sales_results) { Object.new }
+
+            before do
+              LemonadeStand::Calculation
+                .stubs(:calculate_sales)
+                .with(day, choice)
+                .returns sales_results
+            end
+
+            it "should calculate the sales results" do
+              game.make_choice choice, { player: player, day: day }
+              game.sales_results_for(player, day).must_be_same_as sales_results
+            end
+
+          end
+
+        end
+
       end
 
     end
@@ -90,10 +109,16 @@ describe LemonadeStand::Game do
     end
 
     describe "start a new day" do
+
       it "should create a new day" do
         game.start_a_new_day
         game.days.count.must_equal 1
         game.days.first.is_a?(LemonadeStand::Day).must_equal true
+      end
+
+      it "should return the day" do
+        result = game.start_a_new_day
+        result.must_be_same_as game.days.first
       end
 
       describe "starting a new day" do
@@ -103,6 +128,12 @@ describe LemonadeStand::Game do
           game.days.count.must_equal 2
           game.days.first.is_a?(LemonadeStand::Day).must_equal true
           game.days.last.is_a?(LemonadeStand::Day).must_equal true
+        end
+
+        it "should return the latest day" do
+          game.start_a_new_day
+          result = game.start_a_new_day
+          result.must_be_same_as game.days.last
         end
       end
     end
