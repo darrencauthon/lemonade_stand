@@ -61,27 +61,20 @@ describe LemonadeStand::Game do
 
     describe "multiple days" do
 
-      [0, 1].each do |day_index|
+      let(:day) { Object.new }
 
-        describe "and the game is on day #{day_index}" do
+      let(:sales_results) { Object.new }
 
-          let(:day) { Object.new }
+      before do
+        LemonadeStand::Calculation
+          .stubs(:calculate_sales)
+          .with(day, choice)
+          .returns sales_results
+      end
 
-          let(:sales_results) { Object.new }
-
-          it "should calculate the sales results" do
-            LemonadeStand::Calculation
-              .stubs(:calculate_sales)
-              .with(day, choice)
-              .returns sales_results
-
-            game.make_choice choice, { player: player, day: day }
-
-            game.sales_results_for(player, day).must_be_same_as sales_results
-          end
-
-        end
-
+      it "should calculate the sales results" do
+        game.make_choice choice, { player: player, day: day }
+        game.sales_results_for(player, day).must_be_same_as sales_results
       end
 
     end
