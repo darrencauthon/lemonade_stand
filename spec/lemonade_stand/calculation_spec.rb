@@ -40,4 +40,29 @@ describe LemonadeStand::Calculation do
 
   end
 
+  describe "signs factor" do
+    [
+      [0,   0],
+      [1,   0.39],
+      [2,   0.63],
+      [5,   0.92],
+      [10,  0.99],
+      [100, 1.0],
+    ].map { |x| Struct.new(:signs, :expected).new(*x) }.each do |example|
+
+      describe "purchased #{example.signs} signs" do
+
+        let(:choice) { Struct.new(:signs).new example.signs }
+
+        it "should return factor of #{example.expected}" do
+          result = LemonadeStand::Calculation.signs_factor choice
+          result.round(2).must_equal example.expected
+        end
+
+      end
+
+    end
+
+  end
+
 end

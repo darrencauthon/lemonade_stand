@@ -12,5 +12,10 @@ module LemonadeStand
                end
       result
     end
+
+    def self.signs_factor choice
+      1 - Math.exp((-1 * choice.signs) * 0.5)
+    end
+
   end
 end
