@@ -81,4 +81,32 @@ describe LemonadeStand::Game do
 
   end
 
+  describe "days" do
+
+    let(:game) { LemonadeStand::Game.new 1 }
+
+    it "should start with no days" do
+      game.days.count.must_equal 0
+    end
+
+    describe "start a new day" do
+      it "should create a new day" do
+        game.start_a_new_day
+        game.days.count.must_equal 1
+        game.days.first.is_a?(LemonadeStand::Day).must_equal true
+      end
+
+      describe "starting a new day" do
+        it "should create two new days" do
+          game.start_a_new_day
+          game.start_a_new_day
+          game.days.count.must_equal 2
+          game.days.first.is_a?(LemonadeStand::Day).must_equal true
+          game.days.last.is_a?(LemonadeStand::Day).must_equal true
+        end
+      end
+    end
+
+  end
+
 end

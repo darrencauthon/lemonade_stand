@@ -12,6 +12,15 @@ module LemonadeStand
       @result = LemonadeStand::Calculation.calculate_sales day, choice
     end
 
+    def days
+      @days ||= []
+    end
+
+    def start_a_new_day
+      @days ||= []
+      @days << LemonadeStand::Day.new
+    end
+
     def sales_results_for player, day
       @result
     end
