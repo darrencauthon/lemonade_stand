@@ -6,6 +6,7 @@ module LemonadeStand
 
     attr_accessor :signs
     attr_accessor :price_per_glass
+    attr_accessor :glasses_made
 
     def max_sales
       sales_factor + (sales_factor * signs_factor)

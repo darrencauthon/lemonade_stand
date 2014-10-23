@@ -52,4 +52,23 @@ describe LemonadeStand::Day do
 
   end
 
+  describe "calculate glasses sold" do
+
+    let(:choice) { LemonadeStand::Choice.new }
+    let(:day)    { LemonadeStand::Day.new }
+
+    describe "and no glasses were made" do
+
+      before do
+        choice.glasses_made = 0
+      end
+
+      it "should report that no glasses were sold" do
+        day.calculate_glasses_sold(choice).must_equal 0
+      end
+
+    end
+
+  end
+
 end

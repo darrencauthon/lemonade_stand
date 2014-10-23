@@ -14,6 +14,10 @@ module LemonadeStand
       Struct.new(:glasses_sold).new calculate_glasses_sold(choice)
     end
 
+    def calculate_glasses_sold choice
+      0
+    end
+
   end
 
 end
