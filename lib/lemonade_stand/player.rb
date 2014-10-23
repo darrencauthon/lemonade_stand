@@ -9,7 +9,7 @@ module LemonadeStand
     end
 
     def choose choice
-      game.make_choice choice, self
+      game.make_choice choice, { player: self }
     end
 
   end

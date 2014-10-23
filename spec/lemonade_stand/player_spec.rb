@@ -18,7 +18,7 @@ describe LemonadeStand::Player do
     end
 
     it "should pass the choice up to the game" do
-      game.expects(:make_choice).with choice, player
+      game.expects(:make_choice).with choice, { player: player }
       player.choose choice
     end
 
