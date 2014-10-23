@@ -10,6 +10,10 @@ module LemonadeStand
       @weather ||= LemonadeStand::Weather.weather_for self
     end
 
+    def sales_for choice
+      Struct.new(:glasses_sold).new calculate_glasses_sold(choice)
+    end
+
   end
 
 end
