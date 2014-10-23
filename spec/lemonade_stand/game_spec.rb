@@ -113,6 +113,31 @@ describe LemonadeStand::Game do
 
       end
 
+      describe "making a choice without defining the day" do
+
+        let(:game)   { LemonadeStand::Game.new 1 }
+        let(:choice) { Object.new }
+        let(:player) { game.players.first }
+        
+        let(:expected_results) { Object.new }
+
+        let(:day) do
+          d = Object.new
+          d.stubs(:sales_for).returns expected_results
+          d
+        end
+
+        before do
+          game.stubs(:days).returns Struct.new(:last).new(day)
+        end
+
+        it "should default to using the last day" do
+          game.make_choice choice, { player: player }
+          game.sales_results_for(player, day).must_be_same_as expected_results
+        end
+
+      end
+
     end
 
   end

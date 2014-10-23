@@ -8,7 +8,7 @@ module LemonadeStand
 
     def make_choice choice, options
       player  = options[:player]
-      day     = options[:day]
+      day     = options[:day] || days.last
       results = day.sales_for choice 
       store_sales_results_for results, player, day
     end
