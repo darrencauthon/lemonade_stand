@@ -116,4 +116,40 @@ describe LemonadeStand::Event do
 
   end
 
+  describe "a cloudy event" do
+
+    let(:day) { Object.new }
+
+    (0...25).to_a.each do |random_value|
+      describe "random 0-99 is #{random_value}" do
+
+        before { LemonadeStand::Event.stubs(:rand).with(100).returns random_value }
+
+        it "should return a normal work event" do
+          event = Object.new
+          LemonadeStand::Event.stubs(:build).with(:storm).returns event
+          result = LemonadeStand::Event.cloudy_event_for day
+          result.must_be_same_as event
+        end
+
+      end
+    end
+
+    (25..100).to_a.each do |random_value|
+      describe "random 0-99 is #{random_value}" do
+
+        before { LemonadeStand::Event.stubs(:rand).with(100).returns random_value }
+
+        it "should return a normal day" do
+          event = Object.new
+          LemonadeStand::Event.stubs(:build).with(:rain).returns event
+          result = LemonadeStand::Event.cloudy_event_for day
+          result.must_be_same_as event
+        end
+
+      end
+    end
+
+  end
+
 end
