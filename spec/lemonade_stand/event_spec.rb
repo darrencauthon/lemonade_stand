@@ -161,4 +161,21 @@ describe LemonadeStand::Event do
     end
   end
 
+  describe "build" do
+    [
+      [:rain, LemonadeStand::RainEvent],
+      [:storm, LemonadeStand::StormEvent],
+      [:heat_wave, LemonadeStand::HeatWaveEvent],
+      [:street_work, LemonadeStand::StreetWorkEvent],
+      [:normal, LemonadeStand::NormalEvent],
+    ].map { |x| Struct.new(:type, :klass).new *x }.each do |example|
+      describe "building #{example.type}" do
+        it "should create an #{example.klass}" do
+          LemonadeStand::Event.build(example.type)
+            .is_a?(example.klass).must_equal true
+        end
+      end
+    end
+  end
+
 end

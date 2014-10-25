@@ -1,5 +1,11 @@
 module LemonadeStand
 
+  class RainEvent; end
+  class StormEvent; end
+  class HeatWaveEvent; end
+  class StreetWorkEvent; end
+  class NormalEvent; end
+
   class Event
 
     def self.for day
@@ -23,6 +29,10 @@ module LemonadeStand
 
     def self.hot_and_dry_event_for _
       build(:heat_wave)
+    end
+    
+    def self.build type
+      eval("LemonadeStand::#{type.to_s.split('_').map { |x| x.capitalize }.join('')}Event").new
     end
 
   end
