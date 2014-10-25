@@ -11,18 +11,16 @@ module LemonadeStand
     end
 
     def self.weather_for day
-      if day.number < 3
-        new :sunny
-      else
-        random_value = rand(10)
-        if random_value < 6
-          new :sunny
-        elsif random_value < 8
-          new :cloudy
-        else
-          new :hot_and_dry
-        end
-      end
+      type = if day.number < 3
+               :sunny
+             else
+               case rand(10)
+               when 0..5 then :sunny
+               when 6..7 then :cloudy
+               else :hot_and_dry
+               end
+             end
+      new type
     end
 
   end
