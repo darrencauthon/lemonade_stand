@@ -178,4 +178,16 @@ describe LemonadeStand::Event do
     end
   end
 
+  describe "modify" do
+
+    let(:choice) { Struct.new(:glasses_made).new Object.new }
+
+    it "should return the glasses made" do
+      event = LemonadeStand::Event.new
+      result = event.modify choice
+      result.must_be_same_as choice.glasses_made
+    end
+
+  end
+
 end

@@ -8,6 +8,10 @@ module LemonadeStand
 
   class Event
 
+    def modify choice
+      choice.glasses_made
+    end
+
     def self.for day
       type = [:sunny, :hot_and_dry, :cloudy].select { |x| day.weather.send("#{x}?".to_sym) }.first
       send("#{type}_event_for".to_sym, day)

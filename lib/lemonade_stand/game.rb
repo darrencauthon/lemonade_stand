@@ -21,6 +21,7 @@ module LemonadeStand
       @days ||= []
       day = LemonadeStand::Day.new
       @days << day
+      day.number = @days.count
       day
     end
 

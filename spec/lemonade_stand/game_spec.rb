@@ -163,6 +163,11 @@ describe LemonadeStand::Game do
         result.must_be_same_as game.days.first
       end
 
+      it "should set the day number to 1" do
+        game.start_a_new_day
+        game.days.first.number.must_equal 1
+      end
+
       describe "starting a new day" do
         it "should create two new days" do
           game.start_a_new_day
@@ -176,6 +181,13 @@ describe LemonadeStand::Game do
           game.start_a_new_day
           result = game.start_a_new_day
           result.must_be_same_as game.days.last
+        end
+
+        it "should set the day numbers" do
+          game.start_a_new_day
+          game.start_a_new_day
+          game.days.first.number.must_equal 1
+          game.days.last.number.must_equal 2
         end
       end
     end
