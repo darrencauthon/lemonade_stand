@@ -12,7 +12,7 @@ module LemonadeStand
       return build(:normal)
     end
 
-    def self.cloudy_event_for day
+    def self.cloudy_event_for _
       if rand(100) < 25
         return build(:storm)
       end
