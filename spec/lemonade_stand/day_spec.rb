@@ -121,4 +121,20 @@ describe LemonadeStand::Day do
 
   end
 
+  describe "event" do
+
+    let(:event) { Object.new }
+
+    before { LemonadeStand::Event.stubs(:for).with(day).returns(event).then.returns(Object.new) }
+
+    it "should look up the event for the day" do
+      day.event.must_be_same_as event
+    end
+
+    it "should return the same day on every call" do
+      day.event.must_be_same_as day.event
+    end
+
+  end
+
 end

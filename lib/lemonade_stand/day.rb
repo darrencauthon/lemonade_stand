@@ -19,6 +19,10 @@ module LemonadeStand
         .sort_by { |x| x }.first
     end
 
+    def event
+      @event ||= Event.for(self)
+    end
+
   end
 
 end
