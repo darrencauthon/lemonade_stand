@@ -4,5 +4,12 @@ module LemonadeStand
       return sunny_event if day.weather.sunny?
       day.weather.hot_and_dry? ? hot_and_dry_event : cloudy_event
     end
+
+    def self.sunny_event_for day
+      if day.number > 2 && rand(100) < 25
+        return build(:street_work)
+      end
+      return build(:normal)
+    end
   end
 end
