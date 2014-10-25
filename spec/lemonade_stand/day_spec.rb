@@ -57,12 +57,38 @@ describe LemonadeStand::Day do
     let(:choice) { LemonadeStand::Choice.new }
     let(:day)    { LemonadeStand::Day.new }
 
-    describe "and no glasses were made" do
+    describe "no glasses were made" do
       before { choice.glasses_made = 0 }
 
-      it "should report that no glasses were sold" do
-        day.calculate_glasses_sold(choice).must_equal 0
+      describe "and the max sales for the day was 1" do
+        before { choice.stubs(:max_sales).returns 1 }
+
+        it "should report that no glasses were sold" do
+          day.calculate_glasses_sold(choice).must_equal 0
+        end
       end
+
+    end
+
+    describe "2 glasses were made" do
+      before { choice.glasses_made = 2 }
+
+      describe "and max sales for the day was 3" do
+        before { choice.stubs(:max_sales).returns 3 }
+
+        it "should report that 2 glasses was sold" do
+          day.calculate_glasses_sold(choice).must_equal 2
+        end
+      end
+
+      describe "and max sales for the day was 1" do
+        before { choice.stubs(:max_sales).returns 1 }
+
+        it "should report that 1 glass was sold" do
+          day.calculate_glasses_sold(choice).must_equal 1
+        end
+      end
+
     end
 
   end

@@ -15,7 +15,7 @@ module LemonadeStand
     end
 
     def calculate_glasses_sold choice
-      0
+      [choice.max_sales, choice.glasses_made].sort_by { |x| x }.first
     end
 
   end
