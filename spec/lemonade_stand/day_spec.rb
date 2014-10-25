@@ -55,7 +55,19 @@ describe LemonadeStand::Day do
   describe "calculate glasses sold" do
 
     let(:choice) { LemonadeStand::Choice.new }
-    let(:day)    { LemonadeStand::Day.new }
+
+    let(:event) do
+      e = Object.new
+      # default to an event that does not modify the number
+      e.stubs(:modify).with(choice).returns choice.glasses_made
+      e
+    end
+
+    let(:day) do
+      d = LemonadeStand::Day.new
+      d.stubs(:event).returns event
+      d
+    end
 
     describe "no glasses were made" do
       before { choice.glasses_made = 0 }
@@ -78,6 +90,22 @@ describe LemonadeStand::Day do
 
         it "should report that 2 glasses was sold" do
           day.calculate_glasses_sold(choice).must_equal 2
+        end
+
+        describe "and the day's event modified the glasses to 3" do
+          before { event.stubs(:modify).with(choice).returns 3 }
+
+          it "should report that 3 were returned" do
+            day.calculate_glasses_sold(choice).must_equal 3
+          end
+        end
+
+        describe "and the day's event modified the glasses to 4" do
+          before { event.stubs(:modify).with(choice).returns 4 }
+
+          it "should report that 3 were returned" do
+            day.calculate_glasses_sold(choice).must_equal 3
+          end
         end
       end
 
