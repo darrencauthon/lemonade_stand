@@ -1,8 +1,10 @@
 module LemonadeStand
+
   class Event
+
     def self.for day
-      return sunny_event_for(day) if day.weather.sunny?
-      day.weather.hot_and_dry? ? hot_and_dry_event_for(day) : cloudy_event_for(day)
+      type = [:sunny, :hot_and_dry, :cloudy].select { |x| day.weather.send("#{x}?".to_sym) }.first
+      send("#{type}_event_for".to_sym, day)
     end
 
     def self.sunny_event_for day
@@ -22,5 +24,7 @@ module LemonadeStand
     def self.hot_and_dry_event_for _
       build(:heat_wave)
     end
+
   end
+
 end
