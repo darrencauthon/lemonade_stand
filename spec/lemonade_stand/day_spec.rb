@@ -43,9 +43,18 @@ describe LemonadeStand::Day do
     let(:day)    { LemonadeStand::Day.new }
     let(:choice) { Object.new }
 
-    it "should return the calculated sales" do
-      glasses_sold = Object.new
+    let(:glasses_sold) { Object.new }
+
+    before do
       day.stubs(:calculate_glasses_sold).with(choice).returns glasses_sold
+    end
+
+    it "should return a result" do
+      result = day.sales_for choice
+      result.is_a?(LemonadeStand::Result).must_equal true
+    end
+
+    it "should return the calculated sales" do
       result = day.sales_for choice
       result.glasses_sold.must_equal glasses_sold
     end
