@@ -152,4 +152,13 @@ describe LemonadeStand::Event do
 
   end
 
+  describe "a hot and dry event" do
+    it "should return a heat wave" do
+      event = Object.new
+      LemonadeStand::Event.stubs(:build).with(:heat_wave).returns event
+      result = LemonadeStand::Event.hot_and_dry_event_for nil
+      result.must_be_same_as event
+    end
+  end
+
 end

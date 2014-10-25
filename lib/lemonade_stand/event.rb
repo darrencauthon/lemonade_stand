@@ -18,5 +18,9 @@ module LemonadeStand
       end
       return build(:rain)
     end
+
+    def self.hot_and_dry_event_for _
+      build(:heat_wave)
+    end
   end
 end
