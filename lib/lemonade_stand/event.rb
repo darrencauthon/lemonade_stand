@@ -1,11 +1,5 @@
 module LemonadeStand
 
-  class RainEvent; end
-  class StormEvent; end
-  class HeatWaveEvent; end
-  class StreetWorkEvent; end
-  class NormalEvent; end
-
   class Event
 
     def modify choice
@@ -40,5 +34,12 @@ module LemonadeStand
     end
 
   end
+
+  class RainEvent < Event; end
+  class StormEvent < Event; end
+  class HeatWaveEvent < Event; end
+  class StreetWorkEvent < Event; end
+  class NormalEvent < Event; end
+
 
 end

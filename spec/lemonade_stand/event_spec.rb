@@ -190,4 +190,20 @@ describe LemonadeStand::Event do
 
   end
 
+  [
+    LemonadeStand::RainEvent,
+    LemonadeStand::StormEvent,
+    LemonadeStand::HeatWaveEvent,
+    LemonadeStand::StreetWorkEvent,
+    LemonadeStand::NormalEvent,
+  ].each do |type|
+    describe type do
+      it "should be an event" do
+        type.new
+          .is_a?(LemonadeStand::Event)
+          .must_equal true
+      end
+    end
+  end
+
 end
