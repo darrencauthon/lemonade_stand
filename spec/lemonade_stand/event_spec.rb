@@ -19,7 +19,7 @@ describe LemonadeStand::Event do
 
       it "should return a cloudy event" do
         cloudy_event = Object.new
-        LemonadeStand::Event.stubs(:cloudy_event).returns cloudy_event
+        LemonadeStand::Event.stubs(:cloudy_event_for).with(day).returns cloudy_event
         result = LemonadeStand::Event.for(day)
         result.must_be_same_as cloudy_event
       end
@@ -32,7 +32,7 @@ describe LemonadeStand::Event do
 
       it "should return a hot and dry event" do
         event = Object.new
-        LemonadeStand::Event.stubs(:hot_and_dry_event).returns event
+        LemonadeStand::Event.stubs(:hot_and_dry_event_for).with(day).returns event
         result = LemonadeStand::Event.for(day)
         result.must_be_same_as event
       end
@@ -45,7 +45,7 @@ describe LemonadeStand::Event do
 
       it "should return a sunny event" do
         event = Object.new
-        LemonadeStand::Event.stubs(:sunny_event).returns event
+        LemonadeStand::Event.stubs(:sunny_event_for).with(day).returns event
         result = LemonadeStand::Event.for(day)
         result.must_be_same_as event
       end
