@@ -16,6 +16,14 @@ module LemonadeStand
       LemonadeStand::Result.new( { glasses_sold: calculate_glasses_sold(choice) } )
     end
 
+    def cost_per_glass
+      case number
+      when (1..2) then 2
+      when (3..4) then 4
+      else 5
+      end
+    end
+
     def calculate_glasses_sold choice
       [choice.max_sales, event.modify(choice)]
         .sort_by { |x| x }.first

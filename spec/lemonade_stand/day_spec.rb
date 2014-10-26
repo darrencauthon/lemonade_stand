@@ -146,4 +146,26 @@ describe LemonadeStand::Day do
 
   end
 
+  describe "cost per glass" do
+
+    [
+      [1, 2],
+      [2, 2],
+      [3, 4],
+      [4, 4],
+      [5, 5],
+      [6, 5],
+    ].map { |x| Struct.new(:day_number, :cost).new *x }.each do |example|
+
+      describe "day #{example.day_number}" do
+        before { day.stubs(:number).returns example.day_number }
+        it "should equal #{example.cost}" do
+          day.cost_per_glass.must_equal example.cost
+        end
+      end
+
+    end
+
+  end
+
 end
