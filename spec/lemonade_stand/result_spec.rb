@@ -5,22 +5,24 @@ describe LemonadeStand::Result do
   let(:result) { LemonadeStand::Result.new( { glasses_sold: glasses_sold,
                                               choice:       choice,
                                               day:          day } ) }
-  let(:choice) { LemonadeStand::Choice.new }
-  let(:day)    { LemonadeStand::Day.new }
+  let(:choice)       { LemonadeStand::Choice.new }
+  let(:day)          { LemonadeStand::Day.new }
+  let(:glasses_sold) { nil }
 
   describe "expenses" do
     [
       [1, 2, 0, 2],
+      [1, 2, 2, 32],
       [2, 2, 0, 4],
       [3, 4, 0, 12],
-    ].map { |x| Struct.new(:cost_per_glass, :glasses_sold, :signs, :expected).new(*x) }.each do |example|
+      [3, 4, 1, 27],
+    ].map { |x| Struct.new(:cost_per_glass, :glasses_made, :signs, :expected).new(*x) }.each do |example|
 
       describe "multiple examples" do
 
-        let(:glasses_sold) { example.glasses_sold }
-
         before do
-          choice.signs = example.signs
+          choice.signs        = example.signs
+          choice.glasses_made = example.glasses_made
           day.stubs(:cost_per_glass).returns example.cost_per_glass
         end
 

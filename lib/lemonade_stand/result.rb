@@ -11,7 +11,7 @@ module LemonadeStand
     end
 
     def expenses
-      @glasses_sold * @day.cost_per_glass
+      @choice.glasses_made * @day.cost_per_glass + 15 * @choice.signs
     end
 
   end
