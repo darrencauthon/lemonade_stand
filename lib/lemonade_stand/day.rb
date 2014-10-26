@@ -13,7 +13,12 @@ module LemonadeStand
     end
 
     def sales_for choice
-      LemonadeStand::Result.new( { glasses_sold: calculate_glasses_sold(choice) } )
+      data = { 
+               glasses_sold: calculate_glasses_sold(choice),
+               choice:       choice,
+               day:          self,
+             }
+      LemonadeStand::Result.new data
     end
 
     def cost_per_glass

@@ -59,6 +59,16 @@ describe LemonadeStand::Day do
       result.glasses_sold.must_equal glasses_sold
     end
 
+    it "should pass along the day" do
+      result = day.sales_for choice
+      result.day.must_be_same_as day
+    end
+
+    it "should pass along the choice" do
+      result = day.sales_for choice
+      result.choice.must_be_same_as choice
+    end
+
   end
 
   describe "calculate glasses sold" do

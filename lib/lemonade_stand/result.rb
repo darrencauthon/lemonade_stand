@@ -3,6 +3,8 @@ module LemonadeStand
   class Result
 
     attr_reader :glasses_sold
+    attr_reader :choice
+    attr_reader :day
 
     def initialize data
       @glasses_sold = data[:glasses_sold]
