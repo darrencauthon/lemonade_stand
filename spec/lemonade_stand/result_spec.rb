@@ -11,11 +11,12 @@ describe LemonadeStand::Result do
 
   describe "expenses" do
     [
-      [1, 2, 0, 2],
-      [1, 2, 2, 32],
-      [2, 2, 0, 4],
-      [3, 4, 0, 12],
-      [3, 4, 1, 27],
+      [1,   2, 0, 0.02],
+      [1,   2, 2, 0.32],
+      [2,   2, 0, 0.04],
+      [3,   4, 0, 0.12],
+      [3,   4, 1, 0.27],
+      [50, 15, 9, 8.85],
     ].map { |x| Struct.new(:cost_per_glass, :glasses_made, :signs, :expected).new(*x) }.each do |example|
 
       describe "multiple examples" do
