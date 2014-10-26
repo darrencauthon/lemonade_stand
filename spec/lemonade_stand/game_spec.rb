@@ -31,7 +31,6 @@ describe LemonadeStand::Game do
             end
           end
 
-
           it "should set the player index on each as an incrementing index" do
             game.players.each_with_index do |player, index|
               player.index.must_equal index
@@ -76,15 +75,15 @@ describe LemonadeStand::Game do
 
             let(:player) { game.players[player_index] }
 
-            let(:sales_results) { Object.new }
+            let(:sales_results) { Struct.new(:profit).new 0 }
 
-            let(:other_day)    { game.days.select    { |d| d != day    } }
-            let(:other_player) { game.players.select { |p| p != player } }
+            let(:other_day)    { game.days.select    { |d| d != day    }.first }
+            let(:other_player) { game.players.select { |p| p != player }.first }
 
             before do
 
-              other_day.stubs(:sales_for).returns Object.new
-              day.stubs(:sales_for).returns Object.new
+              other_day.stubs(:sales_for).returns Struct.new(:profit).new(0)
+              day.stubs(:sales_for).returns Struct.new(:profit).new(0)
 
               # other moves have been made
               game.make_choice Object.new, { player: player,       day: other_day }
@@ -97,6 +96,25 @@ describe LemonadeStand::Game do
             it "should calculate the sales results" do
               game.make_choice choice, { player: player, day: day }
               game.sales_results_for(player, day).must_be_same_as sales_results
+            end
+
+            describe "changing the players assets after the results are made" do
+              [
+                [200, 100, 300],
+                [100, 221, 321],
+              ].map { |x| Struct.new(:assets, :profit, :expected).new(*x) }.each do |example|
+                describe "multiple examples" do
+                  before do
+                    player.assets = example.assets
+                    sales_results.stubs(:profit).returns example.profit
+                    day.stubs(:sales_for).with(choice).returns sales_results
+                  end
+                  it "should add the profit to the assets" do
+                    game.make_choice choice, { player: player, day: day }
+                    player.assets.must_equal example.expected
+                  end
+                end
+              end
             end
 
             describe "sales results for" do
@@ -119,7 +137,7 @@ describe LemonadeStand::Game do
         let(:choice) { Object.new }
         let(:player) { game.players.first }
         
-        let(:expected_results) { Object.new }
+        let(:expected_results) { Struct.new(:profit).new 0 }
 
         let(:day) do
           d = Object.new

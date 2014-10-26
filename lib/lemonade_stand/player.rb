@@ -3,9 +3,10 @@ module LemonadeStand
   class Player
     attr_accessor :index
     attr_accessor :game
+    attr_accessor :assets
 
-    def assets
-      200
+    def initialize
+      @assets = 200
     end
 
     def choose choice
