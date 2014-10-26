@@ -11,7 +11,7 @@ module LemonadeStand
     end
 
     def income
-      (@glasses_sold * @choice.price_per_glass) / 100.0
+      ((@glasses_sold * @choice.price_per_glass) / 100.0).round 2
     end
 
     def expenses

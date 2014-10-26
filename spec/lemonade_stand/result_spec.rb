@@ -40,7 +40,10 @@ describe LemonadeStand::Result do
 
   describe "income" do
     [
-      [1, 2, 0.02],
+      [1, 2,      0.02],
+      [2, 2,      0.04],
+      [3, 8,      0.24],
+      [3, 8.0001, 0.24],
     ].map { |x| Struct.new(:price_per_glass, :glasses_sold, :expected).new(*x) }.each do |example|
 
       describe "multiple examples" do
