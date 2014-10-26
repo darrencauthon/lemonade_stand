@@ -12,7 +12,7 @@ module LemonadeStand
 
     def expenses
       result = @choice.glasses_made * @day.cost_per_glass + 15 * @choice.signs
-      result / 100.0
+      (result / 100.0).round(2)
     end
 
   end
