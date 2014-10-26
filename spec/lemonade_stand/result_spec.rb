@@ -38,4 +38,26 @@ describe LemonadeStand::Result do
 
   end
 
+  describe "income" do
+    [
+      [1, 2, 0.02],
+    ].map { |x| Struct.new(:price_per_glass, :glasses_sold, :expected).new(*x) }.each do |example|
+
+      describe "multiple examples" do
+
+        let(:glasses_sold) { example.glasses_sold }
+
+        before do
+          choice.price_per_glass = example.price_per_glass
+        end
+
+        it "should be the price of the glass " do
+          result.income.must_equal example.expected
+        end
+
+      end
+
+    end
+  end
+
 end

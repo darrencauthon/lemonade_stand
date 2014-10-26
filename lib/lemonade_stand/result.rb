@@ -10,6 +10,10 @@ module LemonadeStand
       @day          = data[:day]
     end
 
+    def income
+      (@glasses_sold * @choice.price_per_glass) / 100.0
+    end
+
     def expenses
       glasses_cost = @choice.glasses_made * @day.cost_per_glass
       signs_cost   = 15 * @choice.signs
