@@ -63,4 +63,22 @@ describe LemonadeStand::Result do
     end
   end
 
+  describe "profit" do
+    [
+      [2.00,    1.00,  1.00],
+      [4.01,    5.00, -0.99],
+      [4.00001, 5.00, -1.00],
+    ].map { |x| Struct.new(:income, :expenses, :expected).new *x }.each do |example|
+      describe "so many tests" do
+        before do
+          result.stubs(:income).returns example.income
+          result.stubs(:expenses).returns example.expenses
+        end
+        it "should be the income minus expenses" do
+          result.profit.must_equal example.expected
+        end
+      end
+    end
+  end
+
 end

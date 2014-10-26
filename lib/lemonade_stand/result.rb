@@ -20,6 +20,10 @@ module LemonadeStand
       ((glasses_cost + signs_cost) / 100.0).round 2
     end
 
+    def profit
+      (income - expenses).round 2
+    end
+
   end
 
 end
