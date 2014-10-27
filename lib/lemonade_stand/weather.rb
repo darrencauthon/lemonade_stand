@@ -10,6 +10,10 @@ module LemonadeStand
       meth.to_s == "#{@type}?"
     end
 
+    def to_s
+      @type.to_s.split('_').map { |x| x == 'and' ? x : x.capitalize! }.join(' ')
+    end
+
     def self.weather_for day
       type = if day.number < 3
                :sunny
