@@ -3,7 +3,7 @@ module LemonadeStand
   class Event
 
     def modify choice
-      choice.glasses_made
+      choice.max_sales
     end
 
     def self.for day

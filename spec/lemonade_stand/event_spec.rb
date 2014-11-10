@@ -180,12 +180,12 @@ describe LemonadeStand::Event do
 
   describe "modify" do
 
-    let(:choice) { Struct.new(:glasses_made).new Object.new }
+    let(:choice) { Struct.new(:max_sales).new Object.new }
 
-    it "should return the glasses made" do
+    it "should return the default max sales" do
       event = LemonadeStand::Event.new
       result = event.modify choice
-      result.must_be_same_as choice.glasses_made
+      result.must_be_same_as choice.max_sales
     end
 
   end
