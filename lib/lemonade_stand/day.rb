@@ -30,9 +30,8 @@ module LemonadeStand
     end
 
     def calculate_glasses_sold choice
-      max_sales = [choice.max_sales, event.modify(choice)]
-                    .sort_by { |x| x }.reverse.first
-      [choice.glasses_made, max_sales].sort_by { |x| x }.first
+      max_sales = [choice.max_sales, event.modify(choice)].max
+      [choice.glasses_made, max_sales].min
     end
 
     def event
