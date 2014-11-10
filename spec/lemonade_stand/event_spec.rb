@@ -223,3 +223,10 @@ describe LemonadeStand::HeatWaveEvent do
     end
   end
 end
+
+describe LemonadeStand::HeatWaveEvent do
+  it "should return 0" do
+    result = LemonadeStand::StormEvent.new.modify nil
+    result.must_equal 0
+  end
+end
