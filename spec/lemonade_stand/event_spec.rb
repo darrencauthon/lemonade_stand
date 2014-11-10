@@ -254,3 +254,13 @@ describe LemonadeStand::StreetWorkEvent do
     end
   end
 end
+
+describe LemonadeStand::RainEvent do
+
+  let(:choice) { Struct.new(:glasses_made).new Object.new }
+  let(:event)  { LemonadeStand::RainEvent.new }
+
+  it "should remind me to pick up from here" do
+    raise 'pick it up from here'
+  end
+end
