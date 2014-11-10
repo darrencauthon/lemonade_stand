@@ -260,7 +260,37 @@ describe LemonadeStand::RainEvent do
   let(:choice) { Struct.new(:glasses_made).new Object.new }
   let(:event)  { LemonadeStand::RainEvent.new }
 
-  it "should remind me to pick up from here" do
-    raise 'pick it up from here'
+  [
+    [0.0001, 0.70, 10,  7],
+    [0.9999, 0.20, 10,  2],
+    [0.0329, 0.68, 100, 68],
+    [0.5,    0.45, 100, 45],
+  ].map { |x| Struct.new(:random, :chance_of_rain, :previous_max_sales, :new_max_sales).new *x }.each do |example|
+
+    describe "chance of rain" do
+
+      before { event.stubs(:rand).returns example.random }
+
+      it "should calculate the chance of rain (#{example.chance_of_rain})" do
+        event.chance_of_rain.must_equal example.chance_of_rain
+      end
+
+    end
+
+    describe "calculating sales for the day" do
+
+      before do
+        event.stubs(:rand).returns example.random
+        choice.stubs(:max_sales).returns example.previous_max_sales
+      end
+
+      it "should alter the max sales according to the chance of rain" do
+        result = event.modify choice
+        result.must_equal example.new_max_sales
+      end
+
+    end
+
   end
+
 end
