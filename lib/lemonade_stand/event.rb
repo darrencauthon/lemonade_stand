@@ -37,7 +37,11 @@ module LemonadeStand
 
   class RainEvent < Event; end
   class StormEvent < Event; end
-  class HeatWaveEvent < Event; end
+  class HeatWaveEvent < Event; 
+    def modify choice
+      choice.max_sales * 2
+    end
+  end
   class StreetWorkEvent < Event; end
   class NormalEvent < Event; end
 

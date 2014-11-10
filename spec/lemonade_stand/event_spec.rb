@@ -207,3 +207,19 @@ describe LemonadeStand::Event do
   end
 
 end
+
+describe LemonadeStand::HeatWaveEvent do
+  [
+    [1, 2],
+    [2, 4],
+    [3, 6],
+  ].map { |x| Struct.new(:max_sales, :expected).new *x }.each do |example|
+    describe "multiple examples" do
+      it "should double the maximum sales" do
+        choice = Struct.new(:max_sales).new example.max_sales
+        result = LemonadeStand::HeatWaveEvent.new.modify choice
+        result.must_equal example.expected
+      end
+    end
+  end
+end
