@@ -46,7 +46,11 @@ module LemonadeStand
       choice.max_sales * 2
     end
   end
-  class StreetWorkEvent < Event; end
+  class StreetWorkEvent < Event
+    def modify choice
+      rand(4) == 3 ? choice.glasses_made : 0
+    end
+  end
   class NormalEvent < Event; end
 
 

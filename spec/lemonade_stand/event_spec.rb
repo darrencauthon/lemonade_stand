@@ -230,3 +230,27 @@ describe LemonadeStand::HeatWaveEvent do
     result.must_equal 0
   end
 end
+
+describe LemonadeStand::StreetWorkEvent do
+
+  let(:choice) { Struct.new(:glasses_made).new Object.new }
+  let(:event)  { LemonadeStand::StreetWorkEvent.new }
+
+  (0...2).to_a.each do |random_value|
+    describe "random 0-4 is #{random_value}" do
+      before { event.stubs(:rand).with(4).returns random_value }
+      it "should return 0" do
+        result = event.modify choice
+        result.must_equal 0
+      end
+    end
+  end
+
+  describe "random 0-4 is 3" do
+    before { event.stubs(:rand).with(4).returns 3 }
+    it "should return the glasses sold" do
+      result = event.modify choice
+      result.must_be_same_as choice.glasses_made
+    end
+  end
+end
