@@ -78,7 +78,9 @@ describe LemonadeStand::Day do
     let(:event) do
       e = Object.new
       # default to an event that does not modify the number
-      e.stubs(:modify).with(choice).returns choice.glasses_made
+      def e.modify choice
+        choice.max_sales
+      end
       e
     end
 
@@ -114,16 +116,53 @@ describe LemonadeStand::Day do
         describe "and the day's event modified the glasses to 3" do
           before { event.stubs(:modify).with(choice).returns 3 }
 
-          it "should report that 3 were returned" do
-            day.calculate_glasses_sold(choice).must_equal 3
+          it "should report that 2 were returned" do
+            day.calculate_glasses_sold(choice).must_equal 2
           end
         end
 
         describe "and the day's event modified the glasses to 4" do
           before { event.stubs(:modify).with(choice).returns 4 }
 
-          it "should report that 3 were returned" do
-            day.calculate_glasses_sold(choice).must_equal 3
+          it "should report that 2 were returned" do
+            day.calculate_glasses_sold(choice).must_equal 2
+          end
+        end
+      end
+
+      describe "and max sales for the day was 1" do
+        before { choice.stubs(:max_sales).returns 1 }
+
+        it "should report that 1 glass was sold" do
+          day.calculate_glasses_sold(choice).must_equal 1
+        end
+      end
+
+    end
+
+    describe "4 glasses were made" do
+      before { choice.glasses_made = 4 }
+
+      describe "and max sales for the day was 3" do
+        before { choice.stubs(:max_sales).returns 3 }
+
+        it "should report that 3 glasses was sold" do
+          day.calculate_glasses_sold(choice).must_equal 3
+        end
+
+        describe "and the day's event modified the glasses to 4" do
+          before { event.stubs(:modify).with(choice).returns 4 }
+
+          it "should report that 4 were returned" do
+            day.calculate_glasses_sold(choice).must_equal 4
+          end
+        end
+
+        describe "and the day's event modified the glasses to 5" do
+          before { event.stubs(:modify).with(choice).returns 5 }
+
+          it "should report that 4 were returned" do
+            day.calculate_glasses_sold(choice).must_equal 4
           end
         end
       end
