@@ -261,10 +261,10 @@ describe LemonadeStand::RainEvent do
   let(:event)  { LemonadeStand::RainEvent.new }
 
   [
-    [0.0001, 0.70, 10,  7],
-    [0.9999, 0.20, 10,  2],
-    [0.0329, 0.68, 100, 68],
-    [0.5,    0.45, 100, 45],
+    [0.0001, 0.30, 10,  7],
+    [0.9999, 0.80, 10,  2],
+    [0.0329, 0.32, 100, 68],
+    [0.5,    0.55, 100, 45],
   ].map { |x| Struct.new(:random, :chance_of_rain, :previous_max_sales, :new_max_sales).new *x }.each do |example|
 
     describe "chance of rain" do
@@ -287,6 +287,11 @@ describe LemonadeStand::RainEvent do
       it "should alter the max sales according to the chance of rain" do
         result = event.modify choice
         result.must_equal example.new_max_sales
+      end
+
+      it "should return an integer" do
+        result = event.modify choice
+        result.class.must_equal Fixnum
       end
 
     end
