@@ -2,9 +2,6 @@ module LemonadeStand
 
   class Event
 
-    def modify choice
-      choice.max_sales
-    end
     DAY_TYPES = [:sunny, :hot_and_dry, :cloudy]
 
     def self.for day

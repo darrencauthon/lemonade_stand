@@ -178,18 +178,6 @@ describe LemonadeStand::Event do
     end
   end
 
-  describe "modify" do
-
-    let(:choice) { Struct.new(:max_sales).new Object.new }
-
-    it "should return the default max sales" do
-      event = LemonadeStand::Event.new
-      result = event.modify choice
-      result.must_be_same_as choice.max_sales
-    end
-
-  end
-
   [
     LemonadeStand::RainEvent,
     LemonadeStand::StormEvent,
@@ -207,6 +195,23 @@ describe LemonadeStand::Event do
   end
 
 end
+
+describe LemonadeStand::NormalEvent do
+
+  describe "modify" do
+
+    let(:choice) { Struct.new(:max_sales).new Object.new }
+
+    it "should return the default max sales" do
+      event = LemonadeStand::NormalEvent.new
+      result = event.modify choice
+      result.must_be_same_as choice.max_sales
+    end
+
+  end
+
+end
+
 
 describe LemonadeStand::HeatWaveEvent do
   [
