@@ -5,9 +5,10 @@ module LemonadeStand
     def modify choice
       choice.max_sales
     end
+    DAY_TYPES = [:sunny, :hot_and_dry, :cloudy]
 
     def self.for day
-      type = [:sunny, :hot_and_dry, :cloudy].select { |x| day.weather.send("#{x}?".to_sym) }.first
+      type = DAY_TYPES.select { |x| day.weather.send("#{x}?".to_sym) }.first
       send("#{type}_event_for".to_sym, day)
     end
 
