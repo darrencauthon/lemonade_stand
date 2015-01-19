@@ -99,4 +99,16 @@ describe LemonadeStand::Choice do
 
   end
 
+  describe "dropping decimal points" do
+    describe "signs" do
+      it "drop the decimal points" do
+        choice = LemonadeStand::Choice.new
+        choice.signs = 1.01
+        choice.signs.must_equal 1
+        choice.signs = 2.99
+        choice.signs.must_equal 2
+      end
+    end
+  end
+
 end

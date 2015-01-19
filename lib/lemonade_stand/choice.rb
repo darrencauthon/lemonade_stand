@@ -12,6 +12,10 @@ module LemonadeStand
       sales_factor + (sales_factor * signs_factor)
     end
 
+    def signs
+      @signs.to_i
+    end
+
     private
 
     def sales_factor
