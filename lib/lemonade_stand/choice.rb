@@ -16,6 +16,14 @@ module LemonadeStand
       @signs.to_i
     end
 
+    def price_per_glass
+      @price_per_glass.to_i
+    end
+
+    def glasses_made
+      @glasses_made.to_i
+    end
+
     private
 
     def sales_factor

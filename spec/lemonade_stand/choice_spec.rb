@@ -100,13 +100,15 @@ describe LemonadeStand::Choice do
   end
 
   describe "dropping decimal points" do
-    describe "signs" do
-      it "drop the decimal points" do
-        choice = LemonadeStand::Choice.new
-        choice.signs = 1.01
-        choice.signs.must_equal 1
-        choice.signs = 2.99
-        choice.signs.must_equal 2
+    [:signs, :price_per_glass, :glasses_made].each do |property|
+      describe property do
+        it "drop the decimal points" do
+          choice = LemonadeStand::Choice.new
+          choice.send("#{property}=".to_sym, 1.01)
+          choice.send(property).must_equal 1
+          choice.send("#{property}=".to_sym, 2.99)
+          choice.send(property).must_equal 2
+        end
       end
     end
   end
