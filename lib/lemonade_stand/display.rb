@@ -1,7 +1,10 @@
+require 'money'
+
 module LemonadeStand
   module Display
     def self.money input
-      '$0.00'
+      Money.use_i18n = false
+      "$" + Money.new(input).to_s
     end
   end
 end
