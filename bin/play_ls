@@ -1,0 +1,117 @@
+#!/usr/bin/env ruby
+
+require 'lemonade_stand'
+
+puts "Hi!  Welcome to Lemonsville, California"
+puts ""
+puts "In this small town, you are in charge of"
+puts "running your own lemonade stand.  You can"
+puts "compete with as many other people as you"
+puts "wish, but how much profit you make is up"
+puts "to you (the other stands\" sales will not"
+puts "affect your business in any way). If you"
+puts "make the most money, you are the winner!!"
+puts ""
+puts "Are you starting a new game? (Yes or No)"
+puts "Type your answer and hit return ==>"
+
+exit unless gets.chomp.downcase == "yes"
+
+puts "How many people will be playing ==>"
+
+number_of_players = gets.chomp.to_i
+exit unless number_of_players > 0
+
+puts "To manage your lemonade stand, you will"
+puts "need to make these decisions every day:"
+puts ""
+puts "1. How many glasses of lemonade to make"
+puts "   (only one batch is made each morning)"
+puts ""
+puts "2. How many advertising signs to make"
+puts "   (the signs cost fifteen cents each)"
+puts ""
+puts "3. What price to charge for each glass"
+puts ""
+puts "You will begin with $2.00 cash (assets)."
+puts "Because your mother gave you some sugar,"
+puts "your cost to make lemonade is two cents"
+puts "a glass (this may change in the future)."
+puts ""
+puts "Your expenses are the sum of the cost of"
+puts "the lemonade and the cost of the signs."
+puts ""
+puts "Your profits are the difference between"
+puts "income from sales and your expenses."
+puts ""
+puts "The number of glasses you sell each day"
+puts "depends on the price you charge, and on"
+puts "the number of advertising signs you use."
+puts ""
+puts "Keep track of your assets, because you"
+puts "can't spend more money than you have!"
+
+game = LemonadeStand::Game.new number_of_players
+
+(1..3).to_a.each do |_|
+  game.start_a_new_day
+  day    = game.days[-1]
+
+  game.players.each do |player|
+    choice = LemonadeStand::Choice.new
+    puts ""
+    puts "--------------------------------------"
+    puts ""
+    puts "Lemonsville Weather Report"
+    puts day.weather.to_s
+    puts ""
+    puts "On Day #{day.number}, the cost of lemonade is $#{day.cost_per_glass * 0.01}"
+    puts ""
+    puts "Lemonade Stand #{player.index + 1}"
+    puts "Assets $#{player.assets * 0.01}"
+    puts ""
+    puts "How many glasses of lemonade do you"
+    puts "wish to make?"
+    choice.glasses_made = gets.chomp.to_i
+    puts "How many advertising signs (15 cents"
+    puts "each) do you want to make?"
+    choice.signs = gets.chomp.to_i
+    puts "What price (in cents) do you wish to"
+    puts "charge for lemonade?"
+    choice.price_per_glass = gets.chomp.to_i
+
+    player.choose choice
+  end
+
+  game.players.each do |player|
+    puts ""
+    puts "--------------------------------------"
+    puts ""
+    puts "$$ Lemonsville Daily Financial Report $$"
+    puts "Day #{day.number}"
+    puts "Stand #{player.index + 1}"
+    results = game.sales_results_for player, day
+    puts "Glasses Sold: #{results.glasses_sold} x $#{results.choice.price_per_glass * 0.01}"
+    puts "Income: #{results.income * 0.01}"
+
+    puts "Glasses Made: #{results.choice.glasses_made} x $#{day.cost_per_glass * 0.01}"
+    puts "Signs Made: #{results.choice.signs} x $0.15"
+    puts "Expenses: $#{results.expenses * 0.01}"
+    puts ""
+    puts "Profit: $#{results.profit * 0.01}"
+    puts "Assets: $#{player.assets * 0.01}"
+    puts ""
+  end
+
+end
+
+puts "The game is over!"
+
+winner = game.players.sort_by { |x| x.assets }[-1]
+
+puts "The winner is Player #{winner.index + 1}"
+puts ""
+puts "Final Results:"
+game.players.each do |player|
+  puts "Player #{player.index + 1}: $#{player.assets * 0.01}"
+end
