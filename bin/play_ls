@@ -2,6 +2,10 @@
 
 require 'lemonade_stand'
 
+def money input
+  LemonadeStand::Display.money input
+end
+
 puts "Hi!  Welcome to Lemonsville, California"
 puts ""
 puts "In this small town, you are in charge of"
@@ -65,10 +69,10 @@ game = LemonadeStand::Game.new number_of_players
     puts "Lemonsville Weather Report"
     puts day.weather.to_s
     puts ""
-    puts "On Day #{day.number}, the cost of lemonade is $#{day.cost_per_glass * 0.01}"
+    puts "On Day #{day.number}, the cost of lemonade is $#{money(day.cost_per_glass)}"
     puts ""
     puts "Lemonade Stand #{player.index + 1}"
-    puts "Assets $#{player.assets * 0.01}"
+    puts "Assets $#{money(player.assets)}"
     puts ""
     puts "How many glasses of lemonade do you"
     puts "wish to make?"
@@ -91,15 +95,15 @@ game = LemonadeStand::Game.new number_of_players
     puts "Day #{day.number}"
     puts "Stand #{player.index + 1}"
     results = game.sales_results_for player, day
-    puts "Glasses Sold: #{results.glasses_sold} x $#{results.choice.price_per_glass * 0.01}"
-    puts "Income: #{results.income * 0.01}"
+    puts "Glasses Sold: #{results.glasses_sold} x $#{money(results.choice.price_per_glass)}"
+    puts "Income: #{money(results.income)}"
 
-    puts "Glasses Made: #{results.choice.glasses_made} x $#{day.cost_per_glass * 0.01}"
+    puts "Glasses Made: #{results.choice.glasses_made} x $#{money(day.cost_per_glass)}"
     puts "Signs Made: #{results.choice.signs} x $0.15"
-    puts "Expenses: $#{results.expenses * 0.01}"
+    puts "Expenses: $#{money(results.expenses)}"
     puts ""
-    puts "Profit: $#{results.profit * 0.01}"
-    puts "Assets: $#{player.assets * 0.01}"
+    puts "Profit: $#{money(results.profit)}"
+    puts "Assets: $#{money(player.assets)}"
     puts ""
   end
 
@@ -113,5 +117,5 @@ puts "The winner is Player #{winner.index + 1}"
 puts ""
 puts "Final Results:"
 game.players.each do |player|
-  puts "Player #{player.index + 1}: $#{player.assets * 0.01}"
+  puts "Player #{player.index + 1}: $#{money(player.assets)}"
 end
