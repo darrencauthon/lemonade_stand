@@ -69,10 +69,10 @@ game = LemonadeStand::Game.new number_of_players
     puts "Lemonsville Weather Report"
     puts day.weather.to_s
     puts ""
-    puts "On Day #{day.number}, the cost of lemonade is $#{money(day.cost_per_glass)}"
+    puts "On Day #{day.number}, the cost of lemonade is #{money(day.cost_per_glass)}"
     puts ""
     puts "Lemonade Stand #{player.index + 1}"
-    puts "Assets $#{money(player.assets)}"
+    puts "Assets #{money(player.assets)}"
     puts ""
     puts "How many glasses of lemonade do you"
     puts "wish to make?"
@@ -95,15 +95,15 @@ game = LemonadeStand::Game.new number_of_players
     puts "Day #{day.number}"
     puts "Stand #{player.index + 1}"
     results = game.sales_results_for player, day
-    puts "Glasses Sold: #{results.glasses_sold} x $#{money(results.choice.price_per_glass)}"
+    puts "Glasses Sold: #{results.glasses_sold} x #{money(results.choice.price_per_glass)}"
     puts "Income: #{money(results.income)}"
 
-    puts "Glasses Made: #{results.choice.glasses_made} x $#{money(day.cost_per_glass)}"
+    puts "Glasses Made: #{results.choice.glasses_made} x #{money(day.cost_per_glass)}"
     puts "Signs Made: #{results.choice.signs} x $0.15"
-    puts "Expenses: $#{money(results.expenses)}"
+    puts "Expenses: #{money(results.expenses)}"
     puts ""
-    puts "Profit: $#{money(results.profit)}"
-    puts "Assets: $#{money(player.assets)}"
+    puts "Profit: #{money(results.profit)}"
+    puts "Assets: #{money(player.assets)}"
     puts ""
   end
 
@@ -117,5 +117,5 @@ puts "The winner is Player #{winner.index + 1}"
 puts ""
 puts "Final Results:"
 game.players.each do |player|
-  puts "Player #{player.index + 1}: $#{money(player.assets)}"
+  puts "Player #{player.index + 1}: #{money(player.assets)}"
 end
