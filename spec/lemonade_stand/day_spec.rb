@@ -160,6 +160,44 @@ describe LemonadeStand::Day do
 
     end
 
+    describe "5.001 glasses were made" do
+      before { choice.glasses_made = 5.001 }
+
+      describe "and max sales for the day was 3.01" do
+        before { choice.stubs(:max_sales).returns 3.01 }
+
+        it "should report that 3 glasses was sold" do
+          day.calculate_glasses_sold(choice).must_equal 3
+        end
+
+        describe "and the day's event modified the glasses to 5.01" do
+          before { event.stubs(:modify).with(choice).returns 5.01 }
+
+          it "should report that 5 were returned" do
+            day.calculate_glasses_sold(choice).must_equal 5
+          end
+        end
+
+        describe "and the day's event modified the glasses to 5.002" do
+          before { event.stubs(:modify).with(choice).returns 5.002 }
+
+          it "should report that 5 were returned" do
+            day.calculate_glasses_sold(choice).must_equal 5
+          end
+        end
+      end
+
+      describe "and max sales for the day was 1.01" do
+        before { choice.stubs(:max_sales).returns 1.01 }
+
+        it "should report that 1 glass was sold" do
+          day.calculate_glasses_sold(choice).must_equal 1
+        end
+      end
+
+    end
+
+
   end
 
   describe "event" do

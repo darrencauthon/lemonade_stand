@@ -27,7 +27,7 @@ module LemonadeStand
 
     def calculate_glasses_sold choice
       max_sales = [choice.max_sales, event.modify(choice)].max
-      [choice.glasses_made, max_sales].min
+      [choice.glasses_made, max_sales].min.round
     end
 
     def event
