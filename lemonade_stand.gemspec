@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = LemonadeStand::VERSION
   spec.authors       = ["Darren Cauthon"]
   spec.email         = ["darren@cauthon.com"]
-  spec.summary       = %q{SUMMARY}
-  spec.description   = %q{DESCRIPTION}
+  spec.summary       = %q{The Lemonade Stand game.}
+  spec.description   = %q{This is a ruby implementation of the old Lemonade Stand game.}
   spec.homepage      = ""
   spec.license       = "MIT"
 
