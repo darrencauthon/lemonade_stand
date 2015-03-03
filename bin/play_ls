@@ -2,6 +2,11 @@
 
 require 'lemonade_stand'
 
+if ARGV.include?('-v')
+  puts LemonadeStand::VERSION
+  exit
+end
+
 puts 'How many players are playing?'
 number_of_players = gets.chomp.to_i
 
