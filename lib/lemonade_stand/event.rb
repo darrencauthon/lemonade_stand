@@ -10,17 +10,13 @@ module LemonadeStand
     end
 
     def self.sunny_event_for day
-      if day.number > 2 && rand(100) < 25
-        return build(:street_work)
-      end
-      return build(:normal)
+      return build(:street_work) if day.number > 2 && rand(100) < 25
+      build(:normal)
     end
 
     def self.cloudy_event_for _
-      if rand(100) < 25
-        return build(:storm)
-      end
-      return build(:rain)
+      return build(:storm) if rand(100) < 25
+      build(:rain)
     end
 
     def self.hot_and_dry_event_for _
@@ -28,7 +24,8 @@ module LemonadeStand
     end
     
     def self.build type
-      eval("LemonadeStand::#{type.to_s.split('_').map { |x| x.capitalize }.join('')}Event").new
+      the_class = "LemonadeStand::#{type.to_s.split('_').map { |x| x.capitalize }.join('')}Event"
+      eval(the_class).new
     end
 
   end
