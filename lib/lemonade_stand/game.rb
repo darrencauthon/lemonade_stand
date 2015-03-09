@@ -35,8 +35,8 @@ module LemonadeStand
     def sales_results_for player, day
       @sales_results ||= []
       @sales_results.select do |record|
-        return record[:results] if record[:player].object_id == player.object_id && record[:day].object_id == day.object_id
-      end
+        record[:player].object_id == player.object_id && record[:day].object_id == day.object_id
+      end.first[:results]
     end
 
     def players
