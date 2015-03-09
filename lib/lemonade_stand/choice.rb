@@ -1,4 +1,5 @@
 module LemonadeStand
+
   class Choice
 
     HIGH_PRICE = 10.0
@@ -40,4 +41,5 @@ module LemonadeStand
     end
 
   end
+
 end
