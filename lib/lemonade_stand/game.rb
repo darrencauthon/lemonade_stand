@@ -21,8 +21,8 @@ module LemonadeStand
 
     def start_a_new_day
       LemonadeStand::Day.new.tap do |day|
-        days << day
         day.number = days.count
+        days << day
       end
     end
 
