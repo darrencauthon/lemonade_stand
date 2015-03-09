@@ -9,7 +9,8 @@ module LemonadeStand
     def make_choice choice, options
       player  = options[:player]
       day     = options[:day] || days.last
-      results = day.sales_for choice 
+      results = day.sales_for choice
+
       player.assets += results.profit
       store_sales_results_for results, player, day
     end
