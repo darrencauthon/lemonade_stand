@@ -41,10 +41,10 @@ module LemonadeStand
 
     def players
       @players ||= (0...@number_of_players).map do |i|
-                     p = LemonadeStand::Player.new
-                     p.index = i
-                     p.game = self
-                     p
+                     LemonadeStand::Player.new.tap do |p|
+                       p.index = i
+                       p.game  = self
+                     end
                    end
     end
 
