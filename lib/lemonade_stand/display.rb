@@ -6,7 +6,7 @@ module LemonadeStand
 
     def self.money input
       Money.use_i18n = false
-      "$" + Money.new(input).to_s
+      "$#{Money.new(input)}"
     end
 
   end
