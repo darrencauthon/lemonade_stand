@@ -2,9 +2,7 @@ module LemonadeStand
 
   class Player
 
-    attr_accessor :index
-    attr_accessor :game
-    attr_accessor :assets
+    attr_accessor :index, :game, :assets
 
     def initialize
       @assets = 200
