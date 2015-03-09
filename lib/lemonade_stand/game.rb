@@ -20,11 +20,10 @@ module LemonadeStand
     end
 
     def start_a_new_day
-      @days ||= []
-      day = LemonadeStand::Day.new
-      @days << day
-      day.number = @days.count
-      day
+      LemonadeStand::Day.new.tap do |day|
+        days << day
+        day.number = days.count
+      end
     end
 
     def store_sales_results_for results, player, day
