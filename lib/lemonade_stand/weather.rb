@@ -18,7 +18,7 @@ module LemonadeStand
       type = if day.number < 3
                :sunny
              else
-               case rand(10)
+               case rand(100)
                when 0..5 then :sunny
                when 6..7 then :cloudy
                else :hot_and_dry
