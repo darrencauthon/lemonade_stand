@@ -23,7 +23,7 @@ describe LemonadeStand::Weather do
         before { day.stubs(:number).returns day_number }
         (1..5).each do |random_value|
           describe "random 0-9 is #{random_value}" do
-            before { LemonadeStand::Weather.stubs(:rand).returns random_value }
+            before { LemonadeStand::Weather.stubs(:rand).with(10).returns random_value }
             it "should be sunny" do
               result = LemonadeStand::Weather.weather_for day
               result.cloudy?.must_equal false
@@ -34,7 +34,7 @@ describe LemonadeStand::Weather do
         end
         (6..7).each do |random_value|
           describe "random 0-9 is #{random_value}" do
-            before { LemonadeStand::Weather.stubs(:rand).returns random_value }
+            before { LemonadeStand::Weather.stubs(:rand).with(10).returns random_value }
             it "should be cloudy" do
               result = LemonadeStand::Weather.weather_for day
               result.cloudy?.must_equal true
@@ -45,7 +45,7 @@ describe LemonadeStand::Weather do
         end
         (8..9).each do |random_value|
           describe "random 0-9 is #{random_value}" do
-            before { LemonadeStand::Weather.stubs(:rand).returns random_value }
+            before { LemonadeStand::Weather.stubs(:rand).with(10).returns random_value }
             it "should be cloudy" do
               result = LemonadeStand::Weather.weather_for day
               result.cloudy?.must_equal false
