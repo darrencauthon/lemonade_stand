@@ -1,6 +1,6 @@
 module LemonadeStand
 
-  class HeatWaveEvent < Event;
+  class HeatWaveEvent < Event
 
     def modify choice
       choice.max_sales * 2
