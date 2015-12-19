@@ -22,6 +22,11 @@ Or install it yourself as:
 
 TODO: Write usage instructions here
 
+## Run The tests
+
+`bundle exec rake test`
+
+
 ## Contributing
 
 1. Fork it ( https://github.com/[my-github-username]/lemonade_stand/fork )
