@@ -20,7 +20,16 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+To play, first make sure you're in the root of the gem
+
+        $ pwd
+        /lemonade_stand
+
+Then run 
+
+        $ bundle exec ruby bin/play_ls
+
+That's it!
 
 ## Run The tests
 
