@@ -1,3 +1,8 @@
+# _dw Journal
+# I made it here from day.rb:34
+# I think the purpose of this class is to chose which event to use for the user.
+# The use of class methods, a build type, and random calculations gives me the impression this class is doing to much.
+
 module LemonadeStand
 
   class Event
@@ -22,7 +27,7 @@ module LemonadeStand
     def self.hot_and_dry_event_for _
       build(:heat_wave)
     end
-    
+
     def self.build type
       the_class = "LemonadeStand::#{type.to_s.split('_').map { |x| x.capitalize }.join('')}Event"
       eval(the_class).new
