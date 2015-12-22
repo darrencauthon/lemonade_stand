@@ -5,12 +5,11 @@ shared:
   next: press the spacebar to move to the next section
   back: press the delete to move to the previous section
   ready: ready to go?
-
-ui:
   weather_header: WEATHER FORECAST
   bank_header: BANK BALANCE
   summary_header: TODAY'S SUMMARY
   divider: '-'
+  prompt: ' > '
 
 how_to_play:
   title: how to play
@@ -43,7 +42,7 @@ forecast:
   signs: signs cost 25 cents each
 
 turn:
-  balance: your bank balance is:
+  balance: your bank balance is
   inventory: how many glasses of lemonade do you want to make?
   signs: how many signs do you want to make?
   retail: "How much will you charge per glass?"
