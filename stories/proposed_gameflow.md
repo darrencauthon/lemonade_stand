@@ -1,6 +1,6 @@
+# proposed game flow
 
-## proposed game flow
-I. 
+## Part I. 
 `$ be ruby bin/play_ls`
 
 --------------
@@ -26,7 +26,7 @@ Winning requires thinking through 4 things;
 <press return to continue>
 --------------
 
-II. 
+## Part II. 
 --------------
 SETUP
 1. - determine the players
@@ -36,7 +36,7 @@ SETUP
 <go>
 --------------
 
-III.
+## Part III.
 .......
 How many players are playing? 3
 How many days will this game last? 3
@@ -45,7 +45,7 @@ How many days will this game last? 3
 What are the players names? (array or 'entry with string')
 (note, args must equal same number of players.)
 
-IV.
+## Part IV.
 Ready?
 
 (all these are spoken by 'say' command)
@@ -74,7 +74,9 @@ The game is over!
 The winner is: Player 0
 
 
+
 -----------------------
+
 ## current game
 
 `$ be ruby bin/play_ls`
