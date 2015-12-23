@@ -18,7 +18,7 @@ module LemonadeStand
     end
 
     def set_players_and_days
-      `say "#{@text['welcome']['one']}"`
+      `say "#{@text['welcome']['one']}"` if @text['settings']['mute']
       text_formatter_with_prompt_and_sound(@text['setup']['player_setup'])
       @number_of_players = gets.chomp
       @number_of_players = validate @number_of_players
@@ -33,10 +33,11 @@ module LemonadeStand
     def recruit_gamemaster players
       @gamemaster ||= LemonadeStand::GameMaster.new(players)
     end
+
     def text_formatter_with_prompt_and_sound(question)
       puts question
       print " > "
-      `say "#{question}"`
+      `say "#{question}"` if @text['settings']['mute']
     end
 
     def load_yaml
@@ -46,8 +47,8 @@ module LemonadeStand
 
     def validate entry
       while is_a_letter? entry
-        puts "#{entry} is not a number."
-         `say Error please enter a number`
+        puts "'#{entry}' is not a number."
+         `say Error please enter a number` if @text['settings']['mute']
 
         print " > "
         entry = gets.chomp
