@@ -2,4 +2,4 @@
 
 require 'lemonade_stand'
 
-LemonadeStand::CLI.new(ARGV).play
+LemonadeStand::CLI.new.play
