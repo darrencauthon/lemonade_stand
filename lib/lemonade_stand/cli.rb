@@ -22,7 +22,7 @@ module LemonadeStand
       text_formatter_with_prompt_and_sound(@text['setup']['player_setup'])
       @number_of_players = gets.chomp
       @number_of_players = validate @number_of_players
-      @gamemaster = LemonadeStand::GameMaster.new(@number_of_players)
+      recruit_gamemaster(@number_of_players)
 
       text_formatter_with_prompt_and_sound(@text['setup']['length_of_game'])
       @number_of_days = gets.chomp
@@ -30,6 +30,9 @@ module LemonadeStand
       @gamemaster.total_days @number_of_days
     end
 
+    def recruit_gamemaster players
+      @gamemaster ||= LemonadeStand::GameMaster.new(players)
+    end
     def text_formatter_with_prompt_and_sound(question)
       puts question
       print " > "
