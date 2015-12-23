@@ -1,15 +1,18 @@
 module LemonadeStand
 
   class Day
-    
-    attr_accessor :number
+
+    def initialize(day, number)
+      @day = day
+      @number = number
+    end
 
     def weather
       @weather ||= LemonadeStand::Weather.weather_for self
     end
 
     def sales_for choice
-      data = { 
+      data = {
                glasses_sold: calculate_glasses_sold(choice),
                choice:       choice,
                day:          self,
@@ -18,7 +21,7 @@ module LemonadeStand
     end
 
     def cost_per_glass
-      case number
+      case @number
       when (1..2) then 2
       when (3..4) then 4
       else 5
@@ -31,7 +34,7 @@ module LemonadeStand
     end
 
     def event
-      @event ||= Event.for(self)
+      @event ||= Event.new.for(self)
     end
 
   end
