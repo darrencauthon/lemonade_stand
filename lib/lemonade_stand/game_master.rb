@@ -1,37 +1,39 @@
 module LemonadeStand
   class GameMaster
 
-    attr_reader :players
+    attr_reader :players, :game, :group
 
     def initialize(players=1)
+      @group = []
       @players = players
-      create_players
+      add_players_to_group
+      setup_game
     end
 
-    def create_players
+    def add_players_to_group
       players.times.each do |player, index|
-        create_player index
+        @group << create_player(index)
       end
-    end
-
-    def player_count
-      players
-    end
-
-    def create_player index
-      Player.new(index)
     end
 
     def total_days days
       @days = days
     end
 
-    def game_in_days
+    def rounds
       @days
     end
 
+    def create_player index
+      Player.new(index)
+    end
+
     def start_game
-      'boom'
+      @game.play @days
+    end
+
+    def setup_game
+      @game ||= LemonadeStand::Game.new self
     end
   end
 end
