@@ -1,30 +1,23 @@
 module LemonadeStand
   class GameMaster
 
-    def initialize(config)
-      # _dw how can I access these? for some reason, attr_reader wasn't working so I created these two methods rounds_to_play and all_players
+    attr_reader :round_count,
+                :rounds,
+                :player_count,
+                :players
 
-      @group = []
-      @all_rounds = []
-      @players = config[:players]
-      @rounds = config[:rounds]
-      add_players_to_group
+    def initialize(config)
+      # know how many rounds and save each round
+      @round_count = config[:rounds]
+      @rounds = []
+
+      # know how many players and save each player
+      @player_count = config[:players]
+      @players = []
+
+      add_players
       create_rounds
       setup_game
-    end
-
-    ## I thought an attr_reader would work
-
-    def rounds_to_play
-      @rounds
-    end
-
-    def all_players
-      @group
-    end
-
-    def all_rounds_to_pay
-      @all_rounds
     end
 
     def start_game
@@ -41,47 +34,43 @@ module LemonadeStand
 
     def round(id)
       id -= 1
-      @all_rounds[id]
+      @rounds[id]
     end
 
     def remaining_rounds(round)
-        @remaining_rounds = @rounds - round
+        @remaining_rounds = @round_count - round
     end
 
     def current_round
-      @all_rounds.count - @remaining_rounds
+      @rounds.count - @remaining_rounds
     end
 
     def rounds_played
       # _dw TODO
     end
 
-    def add_players_to_group
-      @players.times.each do |player, index|
-        @group << create_player(index)
+    def add_players
+      @player_count.times.each do |player_id|
+        @players << create_player(player_id)
       end
     end
 
+    def create_player player_id
+      Player.new(player_id)
+    end
+
     def create_rounds
-      @rounds.times do |round|
+      @round_count.times do |round|
         build_round(round)
       end
     end
 
     def build_round round
-      @all_rounds << LemonadeStand::Round.new(round)
+      @rounds << LemonadeStand::Round.new(round)
     end
 
     def total_days days
-      @rounds = days
-    end
-
-    def rounds
-      @days
-    end
-
-    def create_player index
-      Player.new(index)
+      @round_count = days
     end
   end
 end
