@@ -57,14 +57,4 @@ describe LemonadeStand::Weather do
       end
     end
   end
-
-  describe "to string" do
-    it "should return the type as a capitalized string" do
-      LemonadeStand::Weather.new(:sunny).to_s.must_equal "Sunny"
-      LemonadeStand::Weather.new(:rainy).to_s.must_equal "Rainy"
-      LemonadeStand::Weather.new('stormy').to_s.must_equal "Stormy"
-      LemonadeStand::Weather.new(:hot_and_dry).to_s.must_equal "Hot and Dry"
-    end
-  end
-
 end
