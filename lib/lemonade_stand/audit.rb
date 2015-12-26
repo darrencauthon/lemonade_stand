@@ -1,18 +1,27 @@
 module LemonadeStand
   class Audit
 
+    attr_reader :gamemaster
+
     def initialize gamemaster
       load_yaml
       @gamemaster = gamemaster
+      # _dw how can @gamemaster be inherited from < Base something?
     end
 
     def squeeze
       puts "The game is over!"
       `say The game is over!` if @text['settings']['mute']
-      # winner = @gamemaster.players.sort_by { |x| x.assets }[-1]
-      # puts "The winner is: Player #{winner.index}"
+
+      gamemaster.reconcile
     end
+
   private
+
+    def review_the_books
+      gamemaster.reconcile
+    end
+
 
     def load_yaml
       filepath = File.join(File.dirname(__FILE__),"../yaml/audio_script.yaml")
