@@ -43,3 +43,10 @@ That's it!
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
+
+
+## Object overview
+
+As of _2015-12-29_ the current working object relationship is;
+
+![](https://cloud.githubusercontent.com/assets/587705/12044444/889cf6be-ae4e-11e5-8dd0-d098b077ba80.png)
