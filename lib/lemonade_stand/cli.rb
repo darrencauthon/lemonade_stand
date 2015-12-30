@@ -1,37 +1,52 @@
+# _dw clean up
 require 'yaml'
 
 module LemonadeStand
-
   class CLI
+
+    attr_reader :gamemaster
 
     def play
       load_yaml
-      set_players_and_days
-      @gamemaster.start_game
+      puts welcome
+      puts " "
+      gather_participants
+      start_game
       end_game
     end
 
   private
 
+    def start_game
+      gamemaster.start_game
+    end
+
+    def welcome
+      @text['settings']['game_banner']
+    end
+
     def end_game
-      LemonadeStand::Audit.new(@gamemaster).squeeze
+      LemonadeStand::Audit.new.squeeze
     end
 
-    def set_players_and_days
-      `say "#{@text['welcome']['one']}"` if @text['settings']['mute']
-      text_formatter_with_prompt_and_sound(@text['setup']['player_setup'])
-      @number_of_players = gets.chomp
-      @number_of_players = validate @number_of_players
-      recruit_gamemaster(@number_of_players)
-
-      text_formatter_with_prompt_and_sound(@text['setup']['length_of_game'])
-      @number_of_days = gets.chomp
-      @number_of_days = validate @number_of_days
-      @gamemaster.total_days @number_of_days
+    def settings
     end
 
-    def recruit_gamemaster players
-      @gamemaster ||= LemonadeStand::GameMaster.new(players)
+    def gather_participants
+      text_formatter_with_prompt_and_sound(@text['setup']['player_count'])
+        @player_count = gets.chomp
+        @player_count = validate @player_count
+      text_formatter_with_prompt_and_sound(@text['setup']['round_count'])
+        @round_count = gets.chomp
+        @round_count = validate @round_count
+      recruit_gamemaster({
+        players: @player_count,
+        rounds: @round_count
+        })
+    end
+
+    def recruit_gamemaster config
+      @gamemaster ||= LemonadeStand::GameMaster.new(config)
     end
 
     def text_formatter_with_prompt_and_sound(question)
@@ -43,6 +58,8 @@ module LemonadeStand
     def load_yaml
       filepath = File.join(File.dirname(__FILE__),"../yaml/audio_script.yaml")
       @text = YAML.load_file(filepath)
+
+      `say "#{@text['welcome']['one']}"` if @text['settings']['mute']
     end
 
     def validate entry
@@ -62,5 +79,3 @@ module LemonadeStand
     end
   end
 end
-
-

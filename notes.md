@@ -1,3 +1,19 @@
+### 2015-12-23
+
+File structure as I see it so far, haven't gotten into `Event` yet.
+
+```
+- CLI
+  | GameMaster
+    * Round
+      ~ Day
+        ^ Weather
+    * Game
+    * Player
+      ~ choice
+      ~ bank
+  | Audit
+```
 
 ### 2015-12-22 Current status
 

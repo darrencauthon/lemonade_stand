@@ -1,16 +1,22 @@
 module LemonadeStand
   class Weather
 
+    attr_reader :weather_pattern
+
     def initialize(day)
       @day = day
     end
 
     def forecast
-      @forecast = Event.new.forecast
+      weather_pattern.forecast
     end
 
-    def weather_report
-      Event.new(@forecast)
+    def report
+      weather_pattern.report
+    end
+
+    def weather_pattern
+      @weather_pattern ||= LemonadeStand::WeatherPattern.new
     end
   end
 end

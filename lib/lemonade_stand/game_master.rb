@@ -1,4 +1,4 @@
-module LemonadeStand
+ module LemonadeStand
   class GameMaster
 
     attr_reader :round_count,
@@ -7,46 +7,30 @@ module LemonadeStand
                 :players
 
     def initialize(config)
-      # know how many rounds and save each round
-      @round_count = config[:rounds]
-      @rounds = []
+      @round_count  = config[:rounds]
+      @rounds       = []
 
-      # know how many players and save each player
       @player_count = config[:players]
-      @players = []
+      @players      = []
 
       add_players
       create_rounds
-      setup_game
+      game
     end
 
     def start_game
-      @game.play @days
+      game.play
     end
 
-    def setup_game
-      @game ||= LemonadeStand::Game.new with_a_gamemaster
+    def winner
+      1
     end
 
-    def with_a_gamemaster
-      self
-    end
-
-    def round(id)
-      id -= 1
-      @rounds[id]
-    end
-
-    def remaining_rounds(round)
-        @remaining_rounds = @round_count - round
-    end
-
-    def current_round
-      @rounds.count - @remaining_rounds
-    end
-
-    def rounds_played
-      # _dw TODO
+    def game
+      @game ||= LemonadeStand::Game.new({
+          gamemaster: self,
+          rounds: @rounds
+        })
     end
 
     def add_players
@@ -65,12 +49,17 @@ module LemonadeStand
       end
     end
 
-    def build_round round
-      @rounds << LemonadeStand::Round.new(round)
+    def build_round index
+      @rounds << LemonadeStand::Round.new({
+        player_count: @player_count,
+        index: index,
+        round_count: @round_count,
+        day: create_day
+      })
     end
 
-    def total_days days
-      @round_count = days
+    def create_day
+      LemonadeStand::Day.new
     end
   end
 end

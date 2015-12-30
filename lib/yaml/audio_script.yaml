@@ -1,5 +1,16 @@
 settings:
+  mute: false
   audio: "Audio is turned on. To mute, press the letter S for settings"
+  game_banner: |
+    --------------------------------------------
+                   LEMONADE STAND
+    --------------------------------------------
+
+    PART I - SETUP
+
+
+welcome:
+  one: "Let's sell some lemonade!"
 
 shared:
   next: press the spacebar to move to the next section
@@ -10,6 +21,7 @@ shared:
   summary_header: TODAY'S SUMMARY
   divider: '-'
   prompt: ' > '
+
 
 how_to_play:
   title: how to play
@@ -28,8 +40,8 @@ setup:
   rule_2: name the players
   rule_3: pick the number of days to play
   rule_4: Start with 2 dollars to buy goods and signs
-  player_setup: How many players are playing?
-  length_of_game: How many days will this game last?
+  player_count: How many players are playing?
+  round_count: How many days do you want to sell lemonade?
 
 players:
   names: "Okay, let's start with the first player's name"
@@ -64,4 +76,30 @@ weather:
     overcast: overcast
     cloudy: cloudy
     tornado: a tornado warning
+
+heat_scale_forecasts:
+  1: going to be cold
+  2: just above snow temps
+  3: cool breeze day
+  4: perfect sweater day
+  5: t-shirt and sandals!
+  6: bring a hat so you don't get sunburned
+  7: it's a hot one
+  8: Find a hammock and take a nap
+  9: Perfect day for the beach!
+  10: Yikes it's hot!
+
+dry_scale_forecasts:
+  1: rain and thunderstorms
+  2: skattered showers
+  3: light rain
+  4: cloudy
+  5: windy
+  6: nice and dry
+  7: I'm getting a little parched
+  8: wow it's dry
+  9: Save your water!
+  10: Water alert
+
+
 
