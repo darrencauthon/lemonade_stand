@@ -1,8 +1,9 @@
 module LemonadeStand
   class Bank
 
-    def initialize(assets)
-      @assets = assets
+    def initialize(config)
+      @assets = config[:assets]
+      @player = config[:player]
       @transactions = []
     end
 
@@ -38,6 +39,7 @@ module LemonadeStand
 
     def transaction(transaction, amount)
       @transaction ||= LemonadeStand::Transaction.new({
+        account: @player.id,
         transaction: transaction,
         amount: amount
         })
