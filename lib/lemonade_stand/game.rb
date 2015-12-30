@@ -1,56 +1,39 @@
 module LemonadeStand
-
   class Game
 
-    def initialize number_of_players
-      @number_of_players = number_of_players
+    attr_reader :gamemaster
+
+    def initialize(config)
+      @gamemaster    = config[:gamemaster]
+      @rounds        = config[:rounds]
+      @current_round = 1
     end
 
-    def make_choice choice, options
-      player  = options[:player]
-      day     = options[:day] || days.last
-      results = day.sales_for choice
-
-      player.assets += results.profit
-      store_sales_results_for results, player, day
-    end
-
-    def days
-      @days ||= []
-    end
-
-    def start_a_new_day
-      LemonadeStand::Day.new.tap do |day|
-        days << day
-        day.number = days.count
+    def play
+      @rounds.each do |turn|
+        todays_forecast(turn)
+        take_turns turn
+        weather_report(turn)
+        @current_round += 1
       end
     end
 
-    def store_sales_results_for results, player, day
-      sales_results << { player: player, day: day, results: results }
+    def take_turns turn
+      gamemaster.players.each do |player|
+        player.choose
+      end
     end
 
-    def sales_results_for player, day
-      sales_results.select do |record|
-        record[:player].object_id == player.object_id && record[:day].object_id == day.object_id
-      end.first[:results]
+    def weather_report turn
+      turn.weather_report
     end
 
-    def players
-      @players ||= (0...@number_of_players).map do |i|
-                     LemonadeStand::Player.new.tap do |p|
-                       p.index = i
-                       p.game  = self
-                     end
-                   end
+    def todays_forecast turn
+      puts " --------------------------------------------"
+      puts "                                day #{turn.id} of #{@gamemaster.round_count}"
+      puts ""
+      puts " TODAY'S FORECAST..."
+      puts "  #{turn.forecast}"
     end
-
-    private
-
-    def sales_results
-      @sales_results ||= []
-    end
-
   end
-
 end

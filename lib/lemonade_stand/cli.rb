@@ -1,60 +1,81 @@
-module LemonadeStand
+# _dw clean up
+require 'yaml'
 
+module LemonadeStand
   class CLI
 
-    def initialize argv
-      @argv = argv
-    end
+    attr_reader :gamemaster
 
     def play
-
-      if @argv.include?('-v')
-        puts LemonadeStand::VERSION
-        exit
-      end
-
-      puts 'How many players are playing?'
-      number_of_players = gets.chomp.to_i
-
-      puts 'How many days will this game last?'
-      number_of_days = gets.chomp.to_i
-
-      game = LemonadeStand::Game.new number_of_players
-
-      (1..number_of_days).each do |day|
-
-        game.start_a_new_day
-
-        game.players.each do |player|
-          puts "Player #{player.index} is up!!!"
-
-          puts "You have #{player.assets} pennies."
-
-          choice = LemonadeStand::Choice.new
-
-          puts "How many glasses of lemonade do you want to make?"
-          choice.glasses_made = gets.chomp.to_i
-
-          puts "How much will you charge per glass?"
-          choice.price_per_glass = gets.chomp.to_i
-
-          player.choose choice
-
-        end
-
-        game.players.each do |player|
-          puts "Player #{player.index} ended the day with: #{player.assets}"
-        end
-
-      end
-
-      puts "The game is over!"
-      winner = game.players.sort_by { |x| x.assets }[-1]
-
-      puts "The winner is: Player #{winner.index}"
-
+      load_yaml
+      puts welcome
+      puts " "
+      gather_participants
+      start_game
+      end_game
     end
 
-  end
+  private
 
+    def start_game
+      gamemaster.start_game
+    end
+
+    def welcome
+      @text['settings']['game_banner']
+    end
+
+    def end_game
+      LemonadeStand::Audit.new.squeeze
+    end
+
+    def settings
+    end
+
+    def gather_participants
+      text_formatter_with_prompt_and_sound(@text['setup']['player_count'])
+        @player_count = gets.chomp
+        @player_count = validate @player_count
+      text_formatter_with_prompt_and_sound(@text['setup']['round_count'])
+        @round_count = gets.chomp
+        @round_count = validate @round_count
+      recruit_gamemaster({
+        players: @player_count,
+        rounds: @round_count
+        })
+    end
+
+    def recruit_gamemaster config
+      @gamemaster ||= LemonadeStand::GameMaster.new(config)
+    end
+
+    def text_formatter_with_prompt_and_sound(question)
+      puts question
+      print " > "
+      `say "#{question}"` if @text['settings']['mute']
+    end
+
+    def load_yaml
+      filepath = File.join(File.dirname(__FILE__),"../yaml/audio_script.yaml")
+      @text = YAML.load_file(filepath)
+
+      `say "#{@text['welcome']['one']}"` if @text['settings']['mute']
+    end
+
+    def validate entry
+      while is_a_letter? entry
+        puts "'#{entry}' is not a number."
+         `say Error please enter a number` if @text['settings']['mute']
+
+        print " > "
+        entry = gets.chomp
+        @foo = entry.to_i
+      end
+      entry.to_i || @foo
+    end
+
+    def is_a_letter? entry
+      !(entry.to_i.to_s == entry)
+    end
+  end
 end

@@ -1,32 +1,22 @@
 module LemonadeStand
-
   class Weather
 
-    def initialize type
-      @type = type
+    attr_reader :weather_pattern
+
+    def initialize(day)
+      @day = day
     end
 
-    def method_missing(meth, *args, &blk)
-      meth.to_s == "#{@type}?"
+    def forecast
+      weather_pattern.forecast
     end
 
-    def to_s
-      @type.to_s.split('_').map { |x| x == 'and' ? x : x.capitalize! }.join(' ')
+    def report
+      weather_pattern.report
     end
 
-    def self.weather_for day
-      type = if day.number < 3
-               :sunny
-             else
-               case rand(10)
-               when 0..5 then :sunny
-               when 6..7 then :cloudy
-               else :hot_and_dry
-               end
-             end
-      new type
+    def weather_pattern
+      @weather_pattern ||= LemonadeStand::WeatherPattern.new
     end
-
   end
-
 end

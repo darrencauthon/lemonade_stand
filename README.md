@@ -20,7 +20,21 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+To play, first make sure you're in the root of the gem
+
+        $ pwd
+        /lemonade_stand
+
+Then run 
+
+        $ bundle exec ruby bin/play_ls
+
+That's it!
+
+## Run The tests
+
+`bundle exec rake test`
+
 
 ## Contributing
 
@@ -29,3 +43,10 @@ TODO: Write usage instructions here
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
+
+
+## Object overview
+
+As of _2015-12-29_ the current working object relationship is;
+
+![](https://cloud.githubusercontent.com/assets/587705/12044444/889cf6be-ae4e-11e5-8dd0-d098b077ba80.png)

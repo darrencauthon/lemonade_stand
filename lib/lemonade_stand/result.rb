@@ -1,5 +1,4 @@
 module LemonadeStand
-
   class Result
 
     attr_reader :glasses_sold
@@ -25,7 +24,5 @@ module LemonadeStand
     def profit
       (income - expenses).round 2
     end
-
   end
-
 end

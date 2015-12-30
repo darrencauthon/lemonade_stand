@@ -1,45 +1,92 @@
 module LemonadeStand
-
   class Choice
 
-    HIGH_PRICE = 10.0
-    DEMAND     = 30.0
+    def initialize(config)
+      @player_id = config[:player_id]
+      @round_id  = config[:round_id]
+      @player    = config[:player]
+    end
 
-    attr_accessor :signs
-    attr_accessor :price_per_glass
-    attr_accessor :glasses_made
+    def buy qty
+      @buy = qty
+    end
 
-    def max_sales
-      sales_factor + (sales_factor * signs_factor)
+    def inventory
+      @buy
+    end
+
+    def set_retail price
+      @price = price
+    end
+
+    def retail
+      @price
+    end
+
+    def buy_signs quanity
+      @signs = quanity
     end
 
     def signs
-      @signs.to_i
+      @signs
     end
 
-    def price_per_glass
-      @price_per_glass.to_i
+    def cost_of_goods
+      day.cost_of_goods
     end
 
-    def glasses_made
-      @glasses_made.to_i
+    def day
+      @day ||= Day.new
     end
 
-    private
-
-    def sales_factor
-      result = if price_per_glass < 10
-                 (HIGH_PRICE - price_per_glass) / HIGH_PRICE * 0.8 * DEMAND + DEMAND
-               else
-                 (HIGH_PRICE * HIGH_PRICE) * DEMAND / (price_per_glass * price_per_glass)
-               end
-      result
+    def check_balance
+      "  • bank bal. $#{@player.balance}"
     end
 
-    def signs_factor
-      1.0 - Math.exp((-1.0 * signs) * 0.5)
+    def crunch_the_numbers
+      "  • total glasses (without signs)"
     end
 
+    def purchase_inventory
+      puts " "
+      print "Glasses > "
+      @glasses_made = gets.chomp.to_i
+      puts "PLACE ORDER: #{@glasses_made} Glasses"
+    end
+
+    def advertising_budget
+      puts " "
+      print "Signs > "
+      @glasses_made = gets.chomp.to_i
+    end
+
+    def set_retail_price
+      puts " "
+      print "RETAIL PRICE > "
+      @price_per_glass = gets.chomp.to_i
+      puts "PRICE: #{@price_per_glass}"
+      puts "POTENTIAL PROFIT: #{projected_gross_profit}"
+    end
+
+    def projected_gross_profit
+      @price_per_glass * @glasses_made
+    end
+
+  private
+
+    def make_choices
+      puts " "
+      puts " Player #{@player_id} is up."
+      puts ""
+      puts "   STATE OF AFFAIRS"
+      puts " "
+      puts check_balance
+      puts crunch_the_numbers
+      purchase_inventory
+      advertising_budget
+      set_retail_price
+      puts " "
+      puts " _ _ _ _ _ _ _ _ _ "
+    end
   end
-
 end
